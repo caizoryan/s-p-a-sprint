@@ -28,37 +28,37 @@
 .landing {
   height: 40vh;
   position: fixed;
+}
 
-  .title {
-    width: 100vw;
-    height: 20vh;
-    padding: 20px;
-    font-size: 2em;
-  }
+.landing .title {
+  width: 100vw;
+  height: 20vh;
+  padding: 20px;
+  font-size: 2em;
+}
 
-  .contact {
-    padding: 10px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+.contact {
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 
-    width: 50vw;
+  width: 50vw;
 
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    font-size: 0.8em;
-    font-weight: 500;
+  font-size: 0.8em;
+  font-weight: 500;
+}
 
-    :first-child {
-      margin-right: 50px;
-    }
+.contact:first-child {
+  margin-right: 50px;
+}
 
-    .address {
-      font-weight: 400;
-      letter-spacing: 0.02em;
-    }
-  }
+.address {
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 .press-container {
@@ -70,52 +70,43 @@
   flex-direction: column;
 
   background-color: rgba(220, 220, 220, 0.9);
+}
 
-  .title-box {
-    font-size: 1.5em;
-    font-weight: 500;
-    width: 100%;
-    padding: 20px;
-  }
+.title-box {
+  font-size: 1.5em;
+  font-weight: 500;
+  width: 100%;
+  padding: 20px;
+}
 
-  .press-gallery {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 0 20px;
+.press-gallery {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0 20px;
 
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
 
-  .press-box {
-    font-size: 0.8em;
-    padding: 10px 0;
-    margin: 10px 40px 10px 0;
-    height: 40vh;
+.press-box {
+  font-size: 0.8em;
+  padding: 10px 0;
+  margin: 10px 40px 10px 0;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+}
 
-    /* border-top: 1px solid #aaa; */
+img {
+  height: 90%;
+  align-self: start;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
 
-    display: flex;
-    flex-direction: column;
-
-    img {
-      height: 90%;
-      align-self: start;
-      cursor: pointer;
-      transition: all 0.1s ease;
-    }
-
-    img:hover {
-      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
-    }
-
-    .text-container {
-      margin: 15px 10px 20px 0;
-      .title {
-      }
-    }
-  }
+img:hover {
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
 }
 
 .project-container {
@@ -127,15 +118,22 @@
   scrollbar-width: none;
 
   background-color: rgba(200, 200, 200, 0.7);
-
-  .title-box {
-    font-size: 1.5em;
-    font-weight: 500;
-    width: 100%;
-    padding: 20px;
-  }
 }
 
+.project-container .title-box {
+  font-size: 1.5em;
+  font-weight: 500;
+  width: 100%;
+  padding: 20px;
+}
+
+.project-scroll {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
 .project {
   padding: 10px 0;
   font-size: 0.8em;
@@ -143,53 +141,35 @@
   height: 30vh;
   width: 100%;
   position: relative;
+}
 
-  .project-scroll {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
+.project .text-container {
+  width: 35%;
+  height: 76%;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: absolute;
 
-  img {
-    height: 90%;
-    align-self: start;
-    margin: 15px 10px 15px 0;
-    cursor: pointer;
+  padding: 10px;
+  top: 25px;
+  left: 15px;
+}
 
-    transition: all 0.1s ease;
-  }
+.press-box .text-container {
+  margin: 15px 10px 20px 0;
+}
 
-  img:hover {
-    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
-  }
+.text-container .title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-size: 1.2em;
+}
 
-  .text-container {
-    width: 35%;
-    height: 76%;
-    background-color: rgba(255, 255, 255, 0.8);
-    position: absolute;
-
-    padding: 10px;
-    /* margin: 15px 10px 20px 0; */
-    top: 25px;
-    left: 15px;
-
-    .title {
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      font-size: 1.2em;
-    }
-
-    .type {
-      text-transform: capitalize;
-    }
-    .sub-type {
-      text-transform: capitalize;
-      opacity: 0.8;
-    }
-  }
+.type {
+  text-transform: capitalize;
+}
+.sub-type {
+  text-transform: capitalize;
+  opacity: 0.8;
 }
 
 .project-full {
