@@ -11,34 +11,11 @@ import {
 import { data } from "./data.js";
 
 let projects = data.projects;
-let press = data.press;
+let presss = data.press[0].images;
 
 let show = sig("hide");
 let showing = sig(projects[0].id);
 let cur = sig(0);
-
-// basic
-let project = (img_set, title, type, id) => {
-  let show_this = (i) => {
-    show.set("show");
-    showing.set(id);
-    cur.set(i);
-  };
-
-  return div(
-    { class: "project" },
-    div(
-      { class: "project-scroll" },
-      width("40%"),
-      img_set.map((a, f) => img(thumb(a), { onclick: (e) => show_this(f) })),
-    ),
-    div(
-      { class: "text-container" },
-      div({ class: "title" }, title.slice(1)),
-      div({ class: "type" }, type),
-    ),
-  );
-};
 
 let full_screen = () => {
   let img_list = mem(() =>
@@ -71,6 +48,29 @@ let full_screen = () => {
   ]);
 };
 
+// basic
+let project = (img_set, title, type, id) => {
+  let show_this = (i) => {
+    show.set("show");
+    showing.set(id);
+    cur.set(i);
+  };
+
+  return div(
+    { class: "project" },
+    div(
+      { class: "project-scroll" },
+      width("40%"),
+      img_set.map((a, f) => img(thumb(a), { onclick: (e) => show_this(f) })),
+    ),
+    div(
+      { class: "text-container" },
+      div({ class: "title" }, title.slice(1)),
+      div({ class: "type" }, type),
+    ),
+  );
+};
+
 const project_container = () => {
   return div(
     { class: "project-container" },
@@ -79,6 +79,31 @@ const project_container = () => {
       .sort(() => (Math.random() > 0.5 ? -1 : 1))
       .slice(0, 8)
       .map((f) => project(f.images, f.title, f.type.join(" "), f.id)),
+  );
+};
+
+const press_title = (title) => title.split(".")[0].replace(/_/g, " ");
+
+let press = (img_url, title) => {
+  return div(
+    { class: "press-box" },
+    img(img_url),
+    div(
+      { class: "text-container" },
+      div({ class: "title" }, press_title(title)),
+    ),
+  );
+};
+
+const press_container = () => {
+  return div(
+    { class: "press-container" },
+    div({ class: "title-box" }, "Press"),
+    div(
+      { class: "press-gallery" },
+
+      presss.map((f) => press(f.image.large.url, f.title)),
+    ),
   );
 };
 
@@ -108,6 +133,7 @@ const mother = () => {
     landing,
     () => height("40vh"),
     project_container,
+    press_container,
     full_screen,
   );
 };

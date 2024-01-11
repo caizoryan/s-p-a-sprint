@@ -56,6 +56,64 @@
   }
 }
 
+.press-container {
+  z-index: 2;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: rgba(220, 220, 220, 0.9);
+
+  .title-box {
+    font-size: 1.5em;
+    font-weight: 500;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .press-gallery {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 20px;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .press-box {
+    font-size: 0.8em;
+    padding: 10px 0;
+    margin: 10px 40px 10px 0;
+    height: 40vh;
+
+    /* border-top: 1px solid #aaa; */
+
+    display: flex;
+    flex-direction: column;
+
+    img {
+      height: 90%;
+      align-self: start;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+
+    img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .text-container {
+      margin: 15px 10px 20px 0;
+      .title {
+      }
+    }
+  }
+}
+
 .project-container {
   z-index: 2;
   display: flex;
