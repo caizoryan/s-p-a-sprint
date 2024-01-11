@@ -2,10 +2,11 @@ import {
   img,
   div,
   render,
-  each,
+  eff,
   sig,
   mem,
   eff_on,
+  p,
 } from "./solid_monke/solid_monke.js";
 import { data } from "./data.js";
 
@@ -14,20 +15,22 @@ let press = data.press;
 
 let show = sig("hide");
 let showing = sig(projects[0].id);
+let cur = sig(0);
 
 // basic
 let project = (img_set, title, type, id) => {
-  let show_this = () => {
+  let show_this = (i) => {
     show.set("show");
     showing.set(id);
+    cur.set(i);
   };
 
   return div(
-    { class: "project", onclick: show_this },
+    { class: "project" },
     div(
       { class: "project-scroll" },
       width("40%"),
-      img_set.map((a) => img(thumb(a))),
+      img_set.map((a, f) => img(thumb(a), { onclick: (e) => show_this(f) })),
     ),
     div(
       { class: "text-container" },
@@ -42,12 +45,14 @@ let full_screen = () => {
     projects.find((x) => x.id == showing.is()).images.map(large),
   );
 
-  let cur = sig(0);
   let cur_img = mem(() => img_list()[cur.is()]);
   let _class = mem(() => "project-full " + show.is());
   let next = () => cur.set((cur.is() + 1) % img_list().length);
   let prev = () =>
     cur.is() > 0 ? cur.set(cur.is() - 1) : cur.set(img_list().length - 1);
+
+  eff(() => console.log(img_list()));
+  eff(() => console.log(cur.is()));
 
   return div({ class: _class }, [
     img(cur_img),
@@ -66,9 +71,10 @@ let full_screen = () => {
   ]);
 };
 
-const project_contianer = () => {
+const project_container = () => {
   return div(
     { class: "project-container" },
+    div({ class: "title-box" }, "Selected Projects"),
     projects
       .sort(() => (Math.random() > 0.5 ? -1 : 1))
       .slice(0, 8)
@@ -83,6 +89,16 @@ const landing = () => {
   return div(
     { class: "landing" },
     div({ class: "title" }, "Salankar Pashine & Associates"),
+    div(
+      { class: "contact" },
+      div(
+        { class: "address" },
+        p("01, RPTS Rd, Laxminagar,"),
+        p("Nagpur, Maharashtra, 440022"),
+      ),
+
+      div({ class: "phone" }, p("+91 712 222 2222"), p("archspangp@gmail.com")),
+    ),
   );
 };
 
@@ -91,7 +107,7 @@ const mother = () => {
     { class: "mother" },
     landing,
     () => height("40vh"),
-    project_contianer,
+    project_container,
     full_screen,
   );
 };

@@ -1,7 +1,18 @@
+@font-face {
+  font-family: "AspektaVF";
+  src: url("./AspektaVF.woff2") format("woff2");
+}
+
+:root {
+  --color1: #aaa;
+}
+
 * {
   margin: 0;
   padding: 0;
   flex-shrink: 0;
+  font-family: "AspektaVF";
+  text-transform: uppercase;
 }
 .mother {
   display: flex;
@@ -14,6 +25,37 @@
   overflow-x: hidden;
 }
 
+.landing {
+  height: 40vh;
+  position: fixed;
+
+  .title {
+    width: 100vw;
+    height: 20vh;
+    padding: 20px;
+    font-size: 2em;
+  }
+
+  .contact {
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    width: 50vw;
+
+    display: flex;
+    flex-direction: row;
+
+    font-size: 0.8em;
+    font-weight: 500;
+
+    :first-child {
+      margin-right: 50px;
+    }
+  }
+}
+
 .project-container {
   z-index: 2;
   display: flex;
@@ -21,14 +63,61 @@
   overflow: hidden;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none;
+
+  background-color: rgba(200, 200, 200, 0.7);
+
+  .title-box {
+    font-size: 1.5em;
+    font-weight: 500;
+    width: 100%;
+    padding: 20px;
+  }
 }
 
-.show {
-  display: flex;
-}
+.project {
+  padding: 10px 0;
+  font-size: 0.8em;
+  padding: 10px 10px;
+  height: 30vh;
+  width: 100%;
+  position: relative;
 
-.hide {
-  display: none;
+  .project-scroll {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  img {
+    height: 90%;
+    align-self: start;
+    margin: 15px 10px 15px 0;
+    cursor: pointer;
+
+    transition: transform 0.1s ease;
+  }
+
+  img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+  }
+
+  .text-container {
+    width: 35%;
+    height: 76%;
+    background-color: rgba(255, 255, 0, 0.8);
+    position: absolute;
+
+    padding: 10px;
+    /* margin: 15px 10px 20px 0; */
+    top: 25px;
+    left: 15px;
+
+    .title {
+    }
+  }
 }
 
 .project-full {
@@ -78,48 +167,10 @@
   }
 }
 
-.landing {
-  height: 60vh;
-  position: fixed;
-  .title {
-    width: 100vw;
-    height: 20vh;
-    font-size: 2em;
-  }
+.show {
+  display: flex;
 }
 
-.project {
-  padding: 10px 0;
-  border-top: 0.8px solid var(--color1);
-  font-size: 0.8em;
-  padding: 10px 10px;
-  height: 30vh;
-  width: 100%;
-
-  .project-scroll {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
-  cursor: pointer;
-  position: relative;
-
-  img {
-    height: 90%;
-    align-self: start;
-    margin: 15px 10px 20px 0;
-  }
-
-  .text-container {
-    width: 40%;
-    background-color: #fff000;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-
-    .title {
-    }
-  }
+.hide {
+  display: none;
 }
