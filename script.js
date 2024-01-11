@@ -22,14 +22,19 @@ let project = (img_set, title, type, id) => {
     showing.set(id);
   };
 
-  return div({ class: "project", onclick: show_this }, [
+  return div(
+    { class: "project", onclick: show_this },
+    div(
+      { class: "project-scroll" },
+      width("40%"),
+      img_set.map((a) => img(thumb(a))),
+    ),
     div(
       { class: "text-container" },
       div({ class: "title" }, title.slice(1)),
       div({ class: "type" }, type),
     ),
-    img_set.map((a) => img(thumb(a))),
-  ]);
+  );
 };
 
 let full_screen = () => {
@@ -71,8 +76,24 @@ const project_contianer = () => {
   );
 };
 
+const height = (val) => div({ style: { "min-height": val } });
+const width = (val) => div({ style: { "min-width": val } });
+
+const landing = () => {
+  return div(
+    { class: "landing" },
+    div({ class: "title" }, "Salankar Pashine & Associates"),
+  );
+};
+
 const mother = () => {
-  return div({ class: "mother" }, project_contianer, full_screen);
+  return div(
+    { class: "mother" },
+    landing,
+    () => height("40vh"),
+    project_contianer,
+    full_screen,
+  );
 };
 
 // Utils
