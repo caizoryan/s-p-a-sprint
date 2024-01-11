@@ -4,20 +4,58 @@ import {
   render,
   eff,
   sig,
+  inn,
+  span,
   mem,
   eff_on,
   p,
+  if_then,
 } from "./solid_monke/solid_monke.js";
 import { data } from "./data.js";
 
 let projects = data.projects;
 let presss = data.press[0].images;
 
+let images = new Map();
+
+projects.forEach((p) => {
+  p.images.forEach((img) => {
+    let img_obj = new Image();
+    img_obj.src = img.image.thumb.url;
+
+    img_obj.onload = () => {
+      console.log("loaded");
+      images.get(img.url).loaded.set(true);
+    };
+
+    images.set(img.url, {
+      image: img_obj,
+      loaded: sig(false),
+    });
+  });
+});
+
+projects.forEach((p) => {
+  p.images.forEach((img) => {
+    let img_obj = new Image();
+    img_obj.src = img.image.large.url;
+
+    img_obj.onload = () => {
+      images.get(img.url).loaded.set(true);
+    };
+
+    images.set(img.url, {
+      image: img_obj,
+      loaded: sig(false),
+    });
+  });
+});
+
 let show = sig("hide");
 let showing = sig(projects[0].id);
 let cur = sig(0);
 
-let full_screen = () => {
+const full_screen = () => {
   let img_list = mem(() =>
     projects.find((x) => x.id == showing.is()).images.map(large),
   );
@@ -49,7 +87,7 @@ let full_screen = () => {
 };
 
 // basic
-let project = (img_set, title, type, id) => {
+const project = (img_set, title, type, sub_type, id) => {
   let show_this = (i) => {
     show.set("show");
     showing.set(id);
@@ -61,12 +99,21 @@ let project = (img_set, title, type, id) => {
     div(
       { class: "project-scroll" },
       width("40%"),
-      img_set.map((a, f) => img(thumb(a), { onclick: (e) => show_this(f) })),
+      img_set.map((a, f) =>
+        if_then(
+          [
+            images.get(a.url).loaded.is(),
+            // images.get(a.url).image,
+            img(thumb(a), { onclick: (e) => show_this(f) }),
+          ],
+          [!images.get(a.url).loaded.is(), p("loading")],
+        ),
+      ),
     ),
     div(
       { class: "text-container" },
       div({ class: "title" }, title.slice(1)),
-      div({ class: "type" }, type),
+      div({ class: "type" }, type, ", ", span({ class: "sub-type" }, sub_type)),
     ),
   );
 };
@@ -77,14 +124,16 @@ const project_container = () => {
     div({ class: "title-box" }, "Selected Projects"),
     projects
       .sort(() => (Math.random() > 0.5 ? -1 : 1))
-      .slice(0, 8)
-      .map((f) => project(f.images, f.title, f.type.join(" "), f.id)),
+      .slice(0, 6)
+      .map((f) =>
+        project(f.images, f.title, f.type.join(" & "), f.sub_type, f.id),
+      ),
   );
 };
 
 const press_title = (title) => title.split(".")[0].replace(/_/g, " ");
 
-let press = (img_url, title) => {
+const press = (img_url, title) => {
   return div(
     { class: "press-box" },
     img(img_url),
