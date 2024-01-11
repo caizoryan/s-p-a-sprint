@@ -25,11 +25,6 @@
   overflow-x: hidden;
 }
 
-.landing {
-  height: 40vh;
-  position: fixed;
-}
-
 .landing .title {
   width: 100vw;
   height: 20vh;
@@ -37,7 +32,7 @@
   font-size: 2em;
 }
 
-.contact {
+.landing .contact {
   padding: 10px;
   position: absolute;
   bottom: 0;
@@ -52,13 +47,25 @@
   font-weight: 500;
 }
 
-.contact:first-child {
+.landing .contact :first-child {
   margin-right: 50px;
 }
 
-.address {
+.landing .contact .address {
   font-weight: 400;
   letter-spacing: 0.02em;
+}
+
+.landing {
+  height: 40vh;
+  position: fixed;
+}
+
+.press-container .title-box {
+  font-size: 1.5em;
+  font-weight: 500;
+  width: 100%;
+  padding: 20px;
 }
 
 .press-container {
@@ -72,13 +79,6 @@
   background-color: rgba(220, 220, 220, 0.9);
 }
 
-.title-box {
-  font-size: 1.5em;
-  font-weight: 500;
-  width: 100%;
-  padding: 20px;
-}
-
 .press-gallery {
   display: flex;
   flex-direction: row;
@@ -87,6 +87,17 @@
 
   overflow-x: scroll;
   overflow-y: hidden;
+}
+
+.press-box img {
+  height: 90%;
+  align-self: start;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+img:hover {
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
 }
 
 .press-box {
@@ -98,15 +109,8 @@
   flex-direction: column;
 }
 
-img {
-  height: 90%;
-  align-self: start;
-  cursor: pointer;
-  transition: all 0.1s ease;
-}
-
-img:hover {
-  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+.press-box .text-container {
+  margin: 15px 10px 20px 0;
 }
 
 .project-container {
@@ -127,20 +131,25 @@ img:hover {
   padding: 20px;
 }
 
-.project-scroll {
+.project .project-scroll {
   display: flex;
   flex-direction: row;
   height: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
 }
-.project {
-  padding: 10px 0;
-  font-size: 0.8em;
-  padding: 10px 10px;
-  height: 30vh;
-  width: 100%;
-  position: relative;
+
+.project img {
+  height: 90%;
+  align-self: start;
+  margin: 15px 10px 15px 0;
+  cursor: pointer;
+
+  transition: all 0.1s ease;
+}
+
+.project img:hover {
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
 }
 
 .project .text-container {
@@ -150,26 +159,37 @@ img:hover {
   position: absolute;
 
   padding: 10px;
+  /* margin: 15px 10px 20px 0; */
   top: 25px;
   left: 15px;
 }
 
-.press-box .text-container {
-  margin: 15px 10px 20px 0;
+.project {
+  padding: 10px 0;
+  font-size: 0.8em;
+  padding: 10px 10px;
+  height: 30vh;
+  width: 100%;
+  position: relative;
 }
 
-.text-container .title {
+.project .title {
   font-weight: 600;
   letter-spacing: 0.02em;
   font-size: 1.2em;
 }
 
-.type {
+.project .type {
   text-transform: capitalize;
 }
-.sub-type {
+.project .sub-type {
   text-transform: capitalize;
   opacity: 0.8;
+}
+
+.project-full img {
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .project-full {
@@ -179,44 +199,40 @@ img:hover {
   background-color: #fff;
   justify-content: center;
   align-items: center;
+
   z-index: 3;
+}
 
-  img {
-    max-width: 90%;
-    max-height: 90%;
-  }
+.next {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 1%;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-  .next {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    padding: 1%;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .prev {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    padding: 1%;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateY(-50%);
-    background-color: #fff;
-    padding: 1%;
-    border-radius: 50%;
-    cursor: pointer;
-  }
+.prev {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 1%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 1%;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .show {
