@@ -157,7 +157,7 @@ const press_container = () => {
 };
 
 const height = (val) => div({ style: { "min-height": val } });
-const width = (val) => div({ style: { "min-width": val } });
+const width = (val) => div({ class: "spacer", style: { width: val } });
 
 const landing = () => {
   return div(
