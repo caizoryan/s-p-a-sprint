@@ -121,13 +121,15 @@ const project = (img_set, title, type, sub_type, id) => {
 const project_container = () => {
   return div(
     { class: "project-container" },
-    div({ class: "title-box" }, "Selected Projects"),
+    div({ class: "title-box" }, "Featured Projects"),
     projects
       .sort(() => (Math.random() > 0.5 ? -1 : 1))
       .slice(0, 6)
       .map((f) =>
         project(f.images, f.title, f.type.join(" & "), f.sub_type, f.id),
       ),
+
+    div({ class: "show-all" }, "Show All Projects >"),
   );
 };
 
@@ -163,6 +165,11 @@ const landing = () => {
   return div(
     { class: "landing" },
     div({ class: "title" }, "Salankar Pashine & Associates"),
+    div(
+      { class: "menu" },
+      span({ class: "menu-item" }, "((Our Work))"),
+      span({ class: "menu-item" }, "((About Us))"),
+    ),
     div(
       { class: "contact" },
       div(

@@ -31,23 +31,40 @@
 
 .landing {
   height: 40vh;
+  width: 100vw;
   position: fixed;
 }
 
 .landing .title {
   width: 100vw;
-  height: 20vh;
   padding: 20px;
   font-size: 2em;
 }
 
+.landing .menu {
+  padding: 20px;
+  display: flex;
+  width: 50vw;
+}
+
+.landing .menu .menu-item {
+  margin-right: 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all 0.1s ease;
+}
+
+.landing .menu .menu-item:hover {
+  background-color: #fff;
+}
+
 .landing .contact {
-  padding: 10px;
+  padding: 20px;
   position: absolute;
   bottom: 0;
   right: 0;
-
-  width: 50vw;
 
   display: flex;
   flex-direction: row;
@@ -60,9 +77,15 @@
   margin-right: 50px;
 }
 
-.contact .address {
-  font-weight: 400;
-  letter-spacing: 0.02em;
+@media (max-width: 768px) {
+  .landing .contact {
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
 
 /* ---------- */
@@ -131,7 +154,7 @@
 
 .project .title {
   font-weight: 600;
-  letter-spacing: 0.02em;
+  /* letter-spacing: 0.02em; */
   font-size: 1.2em;
 }
 
@@ -145,6 +168,22 @@
 .project .sub-type {
   text-transform: capitalize;
   opacity: 0.8;
+}
+
+.show-all {
+  padding: 10px;
+  margin: 15px;
+  width: 400px;
+
+  font-size: 0.8em;
+
+  cursor: pointer;
+
+  transition: all 0.1s ease;
+}
+
+.show-all:hover {
+  background-color: #fff;
 }
 
 @media (max-width: 768px) {
@@ -223,6 +262,11 @@ img:hover {
 
 .press-box .text-container {
   margin: 15px 10px 20px 0;
+}
+
+.press-box .title {
+  font-weight: 600;
+  font-size: 1.2em;
 }
 
 /* ---------------  */
