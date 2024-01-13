@@ -8,10 +8,13 @@ import {
   span,
   mem,
   eff_on,
+  $$,
+  $,
   p,
   if_then,
 } from "./solid_monke/solid_monke.js";
 import { data } from "./data.js";
+import { onMount } from "./solid_monke/solid.js";
 
 let projects = data.projects;
 let presss = data.press[0].images;
@@ -94,16 +97,26 @@ const project = (img_set, title, type, sub_type, id) => {
     cur.set(i);
   };
 
+  let scrolled = sig(false);
+  let height = mem(() => ({ height: scrolled.is() ? "35%" : "75%" }));
+
+  eff(() => console.log(height()));
+
   return div(
-    { class: "project" },
+    { class: "project hidden-project" },
     div(
-      { class: "project-scroll" },
+      {
+        class: "project-scroll",
+        onscroll: (e) => {
+          if (e.target.scrollLeft > 100) scrolled.set(true);
+          if (e.target.scrollLeft < 100) scrolled.set(false);
+        },
+      },
       width("40%"),
       img_set.map((a, f) =>
         if_then(
           [
             images.get(a.url).loaded.is(),
-            // images.get(a.url).image,
             img(thumb(a), { onclick: (e) => show_this(f) }),
           ],
           [!images.get(a.url).loaded.is(), p("loading")],
@@ -111,7 +124,7 @@ const project = (img_set, title, type, sub_type, id) => {
       ),
     ),
     div(
-      { class: "text-container" },
+      { class: "text-container", style: height },
       div({ class: "title" }, title.slice(1)),
       div({ class: "type" }, type, ", ", span({ class: "sub-type" }, sub_type)),
     ),
@@ -122,12 +135,15 @@ const project_container = () => {
   return div(
     { class: "project-container" },
     div({ class: "title-box" }, "Featured Projects"),
-    projects
-      .sort(() => (Math.random() > 0.5 ? -1 : 1))
-      .slice(0, 6)
-      .map((f) =>
-        project(f.images, f.title, f.type.join(" & "), f.sub_type, f.id),
-      ),
+    div(
+      { class: "projects-gallery" },
+      projects
+        .sort(() => (Math.random() > 0.5 ? -1 : 1))
+        .slice(0, 6)
+        .map((f) =>
+          project(f.images, f.title, f.type.join(" & "), f.sub_type, f.id),
+        ),
+    ),
 
     div({ class: "show-all" }, "Show All Projects >"),
   );
@@ -137,7 +153,7 @@ const press_title = (title) => title.split(".")[0].replace(/_/g, " ");
 
 const press = (img_url, title) => {
   return div(
-    { class: "press-box" },
+    { class: "press-box hidden-press" },
     img(img_url),
     div(
       { class: "text-container" },
@@ -152,7 +168,6 @@ const press_container = () => {
     div({ class: "title-box" }, "Press"),
     div(
       { class: "press-gallery" },
-
       presss.map((f) => press(f.image.large.url, f.title)),
     ),
   );
@@ -167,8 +182,40 @@ const landing = () => {
     div({ class: "title" }, "Salankar Pashine & Associates"),
     div(
       { class: "menu" },
-      span({ class: "menu-item" }, "((Our Work))"),
-      span({ class: "menu-item" }, "((About Us))"),
+      span(
+        {
+          class: "menu-item",
+        },
+        "[ Our Work ]",
+      ),
+      span(
+        {
+          class: "menu-item",
+        },
+        "[ About Us ]",
+      ),
+    ),
+    div(
+      { class: "contact" },
+      div(
+        { class: "address" },
+        p("01, RPTS Rd, Laxminagar,"),
+        p("Nagpur, Maharashtra, 440022"),
+      ),
+
+      div({ class: "phone" }, p("+91 712 222 2222"), p("archspangp@gmail.com")),
+    ),
+  );
+};
+
+const bottom = () => {
+  return div(
+    { class: "about" },
+    div({ class: "title" }, "Salankar Pashine & Associates"),
+    div(
+      { class: "menu" },
+      span({ class: "menu-item" }, "[ Our Work ]"),
+      span({ class: "menu-item" }, "[ About Us ]"),
     ),
     div(
       { class: "contact" },
@@ -199,3 +246,41 @@ const large = (i) => i.image.large.url;
 const thumb = (i) => i.image.thumb.url;
 
 render(() => mother, document.body);
+
+inn(10, () => {
+  let observer = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.remove("hidden-project");
+        }
+      }),
+    {
+      root: $(".mother"),
+      threshold: 0.2,
+    },
+  );
+
+  $$(".project").forEach((div) => {
+    observer.observe(div);
+  });
+});
+
+inn(20, () => {
+  let observer = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.remove("hidden-press");
+        }
+      }),
+    {
+      root: $(".mother"),
+      threshold: 0.1,
+    },
+  );
+
+  $$(".press-box").forEach((div) => {
+    observer.observe(div);
+  });
+});
