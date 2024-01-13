@@ -1,5 +1,6 @@
 import {
   img,
+  each,
   div,
   render,
   eff,
@@ -12,11 +13,134 @@ import {
   $,
   p,
   if_then,
+  when,
 } from "./solid_monke/solid_monke.js";
 import { data } from "./data.js";
 import { onMount } from "./solid_monke/solid.js";
+import { createMutable } from "./solid_monke/store/store.js";
 
 let projects = data.projects;
+
+const project_fullscreen = sig(false);
+
+eff_on(project_fullscreen.is, () => {
+  $$(".hidden-project").forEach((x) => {
+    x.classList.remove("hidden-project");
+  });
+});
+
+const short_filter = (arr) => arr.slice(0, 6);
+const randomise_filter = (arr) =>
+  arr.sort(() => (Math.random() > 0.5 ? -1 : 1));
+const architecture_filter = (arr) =>
+  arr.filter((x) => x.type.includes("architecture"));
+const interior_filter = (arr) => arr.filter((x) => x.type.includes("interior"));
+const residential_filter = (arr) =>
+  arr.filter((x) => x.sub_type.toLowerCase() == "residential");
+const commercial_filter = (arr) =>
+  arr.filter((x) => x.sub_type.toLowerCase() == "commercial");
+const hospitality_filter = (arr) =>
+  arr.filter((x) => x.sub_type.toLowerCase() == "hospitality");
+const hospital_filter = (arr) =>
+  arr.filter((x) => x.sub_type.toLowerCase() == "hospital");
+
+const filter_list = createMutable([
+  {
+    name: "randomise",
+    set: true,
+    func: randomise_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+  {
+    name: "shorten",
+    set: true,
+    func: short_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+  {
+    name: "architecture",
+    set: false,
+    func: architecture_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+  {
+    name: "interior",
+    set: false,
+    func: interior_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+  {
+    name: "residential",
+    set: false,
+    func: residential_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+  {
+    name: "commercial",
+    set: false,
+    func: commercial_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+  {
+    name: "hospital",
+    set: false,
+    func: hospital_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+  {
+    name: "hospitality",
+    set: false,
+    func: hospitality_filter,
+    toggle: function() {
+      this.set = !this.set;
+    },
+  },
+]);
+
+let filters = mem(() => {
+  let f = filter_list.filter((x) => x.set).map((x) => x.func);
+  return f;
+});
+
+eff_on(filters, () => {
+  $$(".project").forEach((x) => {
+    x.classList.add("hidden-project");
+  });
+
+  inn(10, () => {
+    $$(".project").forEach((x) => {
+      x.classList.remove("hidden-project");
+    });
+  });
+});
+
+let project_set = mem(() => {
+  let f = filters();
+  let p = projects;
+  if (f.length == 0) return p;
+  else {
+    for (let i = 0; i < f.length; i++) {
+      p = f[i](p);
+    }
+  }
+
+  return p;
+});
+
 let presss = data.press[0].images;
 
 let images = new Map();
@@ -27,7 +151,6 @@ projects.forEach((p) => {
     img_obj.src = img.image.thumb.url;
 
     img_obj.onload = () => {
-      console.log("loaded");
       images.get(img.url).loaded.set(true);
     };
 
@@ -100,8 +223,6 @@ const project = (img_set, title, type, sub_type, id) => {
   let scrolled = sig(false);
   let height = mem(() => ({ height: scrolled.is() ? "35%" : "75%" }));
 
-  eff(() => console.log(height()));
-
   return div(
     { class: "project hidden-project" },
     div(
@@ -133,16 +254,54 @@ const project = (img_set, title, type, sub_type, id) => {
 
 const project_container = () => {
   return div(
-    { class: "project-container" },
-    div({ class: "title-box" }, "Featured Projects"),
+    {
+      class: mem(() =>
+        project_fullscreen.is()
+          ? "project-container full"
+          : "project-container",
+      ),
+    },
     div(
-      { class: "projects-gallery" },
-      projects
-        .sort(() => (Math.random() > 0.5 ? -1 : 1))
-        .slice(0, 6)
-        .map((f) =>
-          project(f.images, f.title, f.type.join(" & "), f.sub_type, f.id),
+      { class: "title-box" },
+      "Featured Projects",
+      span(
+        {
+          onclick: () =>
+            project_fullscreen.is() === true
+              ? project_fullscreen.set(false)
+              : project_fullscreen.set(true),
+        },
+        if_then(
+          [project_fullscreen.is() === false, "+"],
+          [project_fullscreen.is() === true, "-"],
         ),
+      ),
+    ),
+    when(project_fullscreen.is, [
+      true,
+      div(
+        { class: "filter-box" },
+        each(filter_list, (f) => {
+          return span(
+            {
+              class: mem(() =>
+                f.set ? "filter filter-active" : "filter filter-inactive",
+              ),
+              onclick: () => {
+                f.toggle();
+              },
+            },
+            "[",
+            f.name,
+            "]",
+          );
+        }),
+      ),
+    ]),
+    div({ class: "projects-gallery" }, () =>
+      project_set().map((f) =>
+        project(f.images, f.title, f.type.join(" & "), f.sub_type, f.id),
+      ),
     ),
 
     div({ class: "show-all" }, "Show All Projects >"),
