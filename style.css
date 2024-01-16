@@ -3,24 +3,11 @@
   src: url("./AspektaVF.woff2") format("woff2");
 }
 
-:root {
-  --base: #ddd;
-  --base-trans: #ddddddf0;
-
-  --secondary-base: #c8c8c8e6;
-
-  --highlight-trans: #fffffff0;
-  --highlight: #ffffff;
-
-  --text: #000;
-  --text-on-highlight: #000;
-}
-
 /* :root { */
 /*   --base: #ddd; */
 /*   --base-trans: #ddddddf0; */
 /**/
-/*   --secondary-base: #fbff7e; */
+/*   --secondary-base: #c8c8c8e6; */
 /**/
 /*   --highlight-trans: #fffffff0; */
 /*   --highlight: #ffffff; */
@@ -30,16 +17,29 @@
 /* } */
 
 /* :root { */
-/*   --base: #000; */
-/*   --base-trans: #000000f0; */
-/*   --secondary-base: #222222f0; */
+/*   --base: #ddd; */
+/*   --base-trans: ##fbff7ef0; */
 /**/
-/*   --highlight-trans: #000000f0; */
-/*   --highlight: #000; */
+/*   --secondary-base: #004CB6; */
 /**/
-/*   --text: #fff; */
-/*   --text-on-highlight: #fff; */
+/*   --highlight-trans: #fffffff0; */
+/*   --highlight: #ffffff; */
+/**/
+/*   --text: #000; */
+/*   --text-on-highlight: #000; */
 /* } */
+/**/
+:root {
+  --base: #000;
+  --base-trans: #000000f0;
+  --secondary-base: #222222f0;
+
+  --highlight-trans: #000000f0;
+  --highlight: #000;
+
+  --text: #fff;
+  --text-on-highlight: #fff;
+}
 
 * {
   margin: 0;
