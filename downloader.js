@@ -59,7 +59,9 @@ function format_projects(projects) {
     let type = p.contents
       .filter((x) => x.title == "type")
       .map((x) => x.content);
-    let sub_type = p.contents.find((x) => x.title == "sub_type")?.content;
+    let sub_type = p.contents
+      .filter((x) => x.title == "sub_type")
+      ?.map((x) => x.content);
 
     let images = p.contents
       .filter((x) => x.class == "Image")

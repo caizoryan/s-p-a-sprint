@@ -16,7 +16,6 @@ import {
   when,
 } from "./solid_monke/solid_monke.js";
 import { data } from "./data.js";
-import { onMount } from "./solid_monke/solid.js";
 import { createMutable } from "./solid_monke/store/store.js";
 
 let projects = data.projects;
@@ -117,6 +116,8 @@ let filters = mem(() => {
 });
 
 eff_on(filters, () => {
+  if (project_fullscreen.is() === false) return;
+
   $$(".project").forEach((x) => {
     x.classList.add("hidden-project");
   });
@@ -221,8 +222,10 @@ const project = (img_set, title, type, sub_type, id) => {
   };
 
   let scrolled = sig(false);
-  let height = mem(() => ({ height: scrolled.is() ? "35%" : "75%" }));
-
+  let height = mem(() => ({
+    height: scrolled.is() ? "20%" : "75%",
+    // width: scrolled.is() ? "15%" : "35%",
+  }));
   return div(
     { class: "project hidden-project" },
     div(
@@ -298,9 +301,16 @@ const project_container = () => {
         }),
       ),
     ]),
+
     div({ class: "projects-gallery" }, () =>
       project_set().map((f) =>
-        project(f.images, f.title, f.type.join(" & "), f.sub_type, f.id),
+        project(
+          f.images,
+          f.title,
+          f.type.join(" & "),
+          f.sub_type.join(" & "),
+          f.id,
+        ),
       ),
     ),
 
