@@ -23,6 +23,12 @@ let projects = data.projects;
 const project_fullscreen = sig(false);
 
 eff_on(project_fullscreen.is, () => {
+  if (project_fullscreen.is() === true) {
+    filter_list.forEach((x) => {
+      x.set = false;
+    });
+    filter_list[0].set = true;
+  }
   $$(".hidden-project").forEach((x) => {
     x.classList.remove("hidden-project");
   });
@@ -35,76 +41,108 @@ const architecture_filter = (arr) =>
   arr.filter((x) => x.type.includes("architecture"));
 const interior_filter = (arr) => arr.filter((x) => x.type.includes("interior"));
 const residential_filter = (arr) =>
-  arr.filter((x) => x.sub_type.toLowerCase() == "residential");
+  arr.filter((x) =>
+    x.sub_type.map((r) => r.toLowerCase()).includes("residential"),
+  );
 const commercial_filter = (arr) =>
-  arr.filter((x) => x.sub_type.toLowerCase() == "commercial");
+  arr.filter((x) =>
+    x.sub_type.map((r) => r.toLowerCase()).includes("commercial"),
+  );
 const hospitality_filter = (arr) =>
-  arr.filter((x) => x.sub_type.toLowerCase() == "hospitality");
+  arr.filter((x) =>
+    x.sub_type.map((r) => r.toLowerCase()).includes("hospitality"),
+  );
 const hospital_filter = (arr) =>
-  arr.filter((x) => x.sub_type.toLowerCase() == "hospital");
+  arr.filter((x) =>
+    x.sub_type.map((r) => r.toLowerCase()).includes("hospital"),
+  );
+const all_filter = (arr) => arr;
 
 const filter_list = createMutable([
   {
+    name: "all",
+    set: false,
+    show: true,
+    func: all_filter,
+    toggle: function () {
+      if (this.set === true) this.set = false;
+      else {
+        this.set = true;
+        filter_list.forEach((x) => {
+          if (x.name !== "all") x.set = false;
+        });
+      }
+    },
+  },
+  {
     name: "randomise",
     set: true,
+    show: false,
     func: randomise_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
   {
     name: "shorten",
     set: true,
+    show: false,
     func: short_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
   {
     name: "architecture",
     set: false,
+    show: true,
     func: architecture_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
   {
     name: "interior",
     set: false,
+    show: true,
     func: interior_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
   {
     name: "residential",
     set: false,
+    show: true,
     func: residential_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
   {
     name: "commercial",
     set: false,
+    show: true,
     func: commercial_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
   {
     name: "hospital",
     set: false,
+    show: true,
     func: hospital_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
   {
     name: "hospitality",
     set: false,
+    show: true,
     func: hospitality_filter,
-    toggle: function() {
+    toggle: function () {
       this.set = !this.set;
     },
   },
@@ -255,6 +293,28 @@ const project = (img_set, title, type, sub_type, id) => {
   );
 };
 
+const filterBox = () => {
+  return div(
+    { class: "filter-box" },
+    each(filter_list, (f) => {
+      if (f.show === false) return;
+      return span(
+        {
+          class: mem(() =>
+            f.set ? "filter filter-active" : "filter filter-inactive",
+          ),
+          onclick: () => {
+            f.toggle();
+          },
+        },
+        "[",
+        f.name,
+        "]",
+      );
+    }),
+  );
+};
+
 const project_container = () => {
   return div(
     {
@@ -280,27 +340,7 @@ const project_container = () => {
         ),
       ),
     ),
-    when(project_fullscreen.is, [
-      true,
-      div(
-        { class: "filter-box" },
-        each(filter_list, (f) => {
-          return span(
-            {
-              class: mem(() =>
-                f.set ? "filter filter-active" : "filter filter-inactive",
-              ),
-              onclick: () => {
-                f.toggle();
-              },
-            },
-            "[",
-            f.name,
-            "]",
-          );
-        }),
-      ),
-    ]),
+    when(project_fullscreen.is, [true, filterBox]),
 
     div({ class: "projects-gallery" }, () =>
       project_set().map((f) =>
