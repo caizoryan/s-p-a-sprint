@@ -382,10 +382,9 @@ img:hover {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #fff;
   color: #000;
   padding: 1%;
-  border-radius: 50%;
+  padding-left: 50%;
   cursor: pointer;
 }
 
@@ -397,7 +396,7 @@ img:hover {
   background-color: #fff;
   color: #000;
   padding: 1%;
-  border-radius: 50%;
+  padding-right: 50%;
   cursor: pointer;
 }
 .close {

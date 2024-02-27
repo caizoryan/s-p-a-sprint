@@ -22,18 +22,6 @@ let projects = data.projects;
 
 const project_fullscreen = sig(false);
 
-eff_on(project_fullscreen.is, () => {
-  if (project_fullscreen.is() === true) {
-    filter_list.forEach((x) => {
-      x.set = false;
-    });
-    filter_list[0].set = true;
-  }
-  $$(".hidden-project").forEach((x) => {
-    x.classList.remove("hidden-project");
-  });
-});
-
 const short_filter = (arr) => arr.slice(0, 6);
 const randomise_filter = (arr) =>
   arr.sort(() => (Math.random() > 0.5 ? -1 : 1));
@@ -147,6 +135,29 @@ const filter_list = createMutable([
     },
   },
 ]);
+
+eff_on(project_fullscreen.is, () => {
+  if (project_fullscreen.is() === true) {
+    filter_list.forEach((x) => {
+      x.set = false;
+    });
+    filter_list[0].set = true;
+  }
+
+  if (project_fullscreen.is() === false) {
+    filter_list.forEach((x) => {
+      x.set = false;
+    });
+    filter_list.filter((x) => x.name === "shorten")[0].set = true;
+    filter_list.filter((x) => x.name === "randomise")[0].set = true;
+  }
+
+  inn(10, () => {
+    $$(".hidden-project").forEach((x) => {
+      x.classList.remove("hidden-project");
+    });
+  });
+});
 
 let filters = mem(() => {
   let f = filter_list.filter((x) => x.set).map((x) => x.func);
