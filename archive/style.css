@@ -1,0 +1,390 @@
+@font-face {
+  font-family: "AspektaVF";
+  src: url("./AspektaVF.woff2") format("woff2");
+}
+
+:root {
+  --base: #000;
+  --base-trans: #000000f0;
+  --secondary-base: #222222f0;
+
+  --highlight-trans: #000000f0;
+  --highlight: #000;
+
+  --text: #fff;
+  --text-on-highlight: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  font-family: "AspektaVF";
+  text-transform: uppercase;
+
+  color: var(--text);
+}
+
+.mother {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--base);
+  flex-direction: column;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* --------- */
+/* Landing   */
+/* --------- */
+
+.landing {
+  height: 40vh;
+  width: 100vw;
+  position: fixed;
+}
+
+.landing .title {
+  width: 100vw;
+  padding: 20px;
+  font-size: 2em;
+}
+
+.landing .menu {
+  padding: 20px;
+  display: flex;
+  width: 50vw;
+}
+
+.landing .menu .menu-item {
+  margin-right: 20px;
+  font-size: 0.8em;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: all 0.1s ease;
+}
+
+.landing .menu .menu-item:hover {
+  background-color: var(--highlight);
+}
+
+.landing .contact {
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: row;
+
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.contact :first-child {
+  margin-right: 50px;
+}
+
+@media (max-width: 768px) {
+  .landing .contact {
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+/* ---------- */
+/* Project    */
+/* ---------- */
+
+.myClass {
+  background-color: red !important;
+}
+
+.project-container {
+  z-index: 4;
+  background-color: var(--secondary-base);
+}
+
+.project-container .title-box {
+  font-size: 1.5em;
+  font-weight: 500;
+  width: 100%;
+  padding: 20px;
+}
+
+.project .project-scroll {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.project img {
+  height: 90%;
+  align-self: start;
+  margin: 15px 10px 15px 0;
+  cursor: pointer;
+
+  transition: all 0.1s ease;
+}
+
+.project img:hover {
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+}
+
+.project {
+  padding: 10px 0;
+  font-size: 0.8em;
+  padding: 10px 10px;
+  height: 30vh;
+  width: 98%;
+  position: relative;
+
+  transition: all 0.8s ease;
+}
+
+.project .text-container {
+  width: 35%;
+  background-color: var(--highlight-trans);
+  position: absolute;
+
+  padding: 10px;
+  /* margin: 15px 10px 20px 0; */
+  top: 25px;
+  left: 15px;
+
+  transition: all 0.2s ease;
+}
+
+.project .title {
+  font-weight: 600;
+  /* letter-spacing: 0.02em; */
+  font-size: 1.2em;
+
+  color: var(--text-on-highlight);
+}
+
+.project .spacer {
+  display: flex;
+}
+
+.project .type {
+  text-transform: capitalize;
+
+  color: var(--text-on-highlight);
+}
+.project .sub-type {
+  text-transform: capitalize;
+  opacity: 0.8;
+
+  color: var(--text-on-highlight);
+}
+
+.full {
+  position: fixed;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  top: 0;
+  left: 0;
+}
+
+.show-all {
+  padding: 10px;
+  margin: 15px;
+  width: 95%;
+
+  font-size: 0.8em;
+
+  cursor: pointer;
+
+  transition: all 0.1s ease;
+}
+
+.show-all:hover {
+  background-color: var(--highlight);
+  padding: 55px 15px;
+
+  color: var(--text-on-highlight);
+}
+
+.hidden-project {
+  transform: translateX(150px);
+  opacity: 0;
+}
+
+.filter-box {
+  margin: 15px 15px;
+}
+
+.filter {
+  margin: 15px;
+
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.filter-inactive {
+  opacity: 0.5;
+  font-weight: 200;
+}
+
+.filter-active {
+  opacity: 1;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .project {
+    height: 40vh;
+  }
+
+  .project img {
+    height: 65%;
+  }
+
+  .project .text-container {
+    width: 50%;
+    height: 50%;
+    top: 69%;
+    left: 15px;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  .project .spacer {
+    display: none;
+  }
+}
+
+/* -------- */
+/* Press    */
+/* -------- */
+
+.press-container .title-box {
+  font-size: 1.5em;
+  font-weight: 500;
+  width: 100%;
+  padding: 20px;
+}
+
+.press-container {
+  z-index: 2;
+  background-color: var(--base-trans);
+}
+
+.press-gallery {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0 20px;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.press-box img {
+  height: 90%;
+  align-self: start;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+img:hover {
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+}
+
+.press-box {
+  font-size: 0.8em;
+  padding: 10px 0;
+  margin: 10px 40px 10px 0;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+
+  transition: all 0.8s ease;
+}
+
+.press-box .text-container {
+  margin: 15px 10px 20px 0;
+}
+
+.press-box .title {
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.hidden-press {
+  transform: translateX(100px);
+  opacity: 0;
+}
+
+/* ---------------  */
+/* Project full    */
+/* -------------- */
+
+.project-full img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.project-full {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 4;
+}
+
+.next {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000;
+  padding: 25% 0 25% 50%;
+  cursor: pointer;
+}
+
+.prev {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000;
+  padding: 25% 50% 25% 0;
+  cursor: pointer;
+}
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  transform: translateY(-50%);
+  color: #000;
+  padding: 1%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.show {
+  display: flex;
+}
+
+.hide {
+  display: none;
+}

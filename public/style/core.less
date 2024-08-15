@@ -1,0 +1,87 @@
+@font-face {
+  font-family: "AspektaVF";
+  src: url("./AspektaVF.woff2") format("woff2");
+}
+
+* {
+  font-family: "AspektaVF";
+  margin: 0;
+  padding: 0;
+}
+
+/*colors*/
+@alpha-1: #fff;
+@base: #000;
+@secondary-base: #222222f0;
+
+@highlight-trans: #000000f0;
+
+@text: #fff;
+@text-on-highlight: #fff;
+
+@unit: 1em;
+
+.phone(@ruleset) {
+  @media (max-width: 600px) {
+    @ruleset();
+  }
+}
+
+body {
+  background-color: lighten(black, 80%);
+  font-size: 16px;
+  .phone({
+    font-size: 12px;
+  });
+}
+
+.menu-item {
+  /* Sizing */
+  padding: (@unit / 2);
+  padding-top: (@unit * 5);
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  /* Colors */
+  background-color: @text;
+}
+
+.label {
+  background-color: @text;
+  color: lighten(black, 70%);
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  width: 50%;
+
+  padding: (@unit / 2);
+  display: flex;
+  // padding-top: 90px;
+}
+
+.page {
+  background-color: lighten(black, 80%);
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+  padding: 0 5% 0 5%;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  // padding: 0 10% 0 10%;
+
+  & > * {
+    .menu-item();
+    &[current="true"] {
+      background-color: rgba(0, 0, 0, 0);
+      box-shadow: 0 30px 40px 5px rgba(0, 0, 0, 0.3);
+    }
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 30px 40px 5px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
