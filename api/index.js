@@ -8,4 +8,7 @@ const app = express();
 
 app.use(express.static(__dirname + "/public"));
 app.all("/*", (req, res) => res.sendFile(__dirname + "/public/index.html"));
-app.listen(7777, () => console.log("Server is running on port 7777"));
+app.get("/ass", (_, res) => res.send("fuck vercel"));
+app.listen(3001, () => console.log("Server is running on port 3001"));
+
+export default app;

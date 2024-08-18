@@ -1,15 +1,1 @@
-{
-  "redirects": [
-    {
-      "source": "/(.*)/",
-      "missing": [
-        {
-          "type": "header",
-          "key": "Host",
-          "value": "s-p-a-sprint.vercel.app/"
-        }
-      ],
-      "destination": "/"
-    }
-  ]
-}
+{ "version": 3, "rewrites": [{ "source": "/(.*)", "destination": "/api" }] }
