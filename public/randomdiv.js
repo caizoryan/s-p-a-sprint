@@ -6,7 +6,7 @@ export let random_div = () => {
   let height = Math.floor(Math.random() * 5);
   let width = Math.floor(Math.random() * 80);
   let padding = Math.floor(Math.random() * 100) + 100;
-  let margin_left = Math.floor(Math.random() * 50);
+  let margin_left = Math.floor(Math.random() * 20);
   let margin_right = Math.floor(Math.random() * 20);
 
   let style = {

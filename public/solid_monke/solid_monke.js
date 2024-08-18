@@ -33,6 +33,7 @@ import {
   Switch,
   Show,
   onMount,
+  onDestroy,
 } from "./solid.js";
 import { render, renderToString } from "./web/web.js";
 import { createStore, produce, createMutable } from "./store/store.js";

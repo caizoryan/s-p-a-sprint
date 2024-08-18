@@ -12,6 +12,7 @@ import { data } from "./data/data.js";
 import { projects } from "./project.js";
 import { fade_in } from "./transitions.js";
 import { random_div } from "./randomdiv.js";
+import { About } from "./about.js";
 import colorschemes from "./colorschemes.js";
 
 page_init();
@@ -33,9 +34,15 @@ eff(() =>
   }),
 );
 
-export function change_colors(ctx, next) {
-  colors.set(random_item(colorschemes));
-  if (next) next();
+export function change_colors() {
+  let recursive_new = () => {
+    let new_colors = random_item(colorschemes);
+    while (new_colors.c1 == colors().c1 && new_colors.c2 == colors().c2) {
+      new_colors = random_item(colorschemes);
+    }
+    return new_colors;
+  };
+  colors.set(recursive_new());
 }
 
 function ColorButton() {
@@ -56,19 +63,11 @@ let BackgroundGraphic = () => {
   return container(random_divs);
 };
 
-let about = () => {
-  mounted(() => fade_in(".about__description"));
-  let description = _("div.about__description");
-  let description_text =
-    "Salankar Pashine & Associates, based in Nagpur, specialises in offering architectural and interior design services across a diverse range of projects, including residential, mixed-use, educational, medical, commercial, and industrial ventures. Established in 1999 and led by Principal Architects Anurag and Pallavi Pashine";
-  return _("div.about")(div(), description(description_text));
-};
-
 let menu_items = [
   { text: "Home" },
   { text: "Work", render: () => projects(data.projects) },
   { text: "Press" },
-  { text: "About", render: about },
+  { text: "About", render: About },
 ];
 
 /* ===============================
