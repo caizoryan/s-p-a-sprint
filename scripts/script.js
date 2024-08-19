@@ -27,6 +27,10 @@ const random_item = (arr) => arr[Math.floor(Math.random() * arr.length)];
 let colors = sig(colorschemes[0]);
 let { div } = _;
 
+eff(() => {
+  console.log(cur_page());
+});
+
 eff(() =>
   css({
     "@c1": colors().c1,
@@ -77,7 +81,7 @@ const Menu = () => {
   let is_selected = (text) => cur_page() == text;
 
   let click_fn = (e) => () => {
-    page("/#" + e.toLowerCase());
+    page("/" + e.toLowerCase());
     change_colors();
   };
   let attr = (text, s) => ({ current: s, onclick: click_fn(text) });
