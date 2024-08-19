@@ -137,7 +137,7 @@ const FilterBox = () => {
   let classes = () => "filter-box " + (show() ? "show" : "hide");
 
   return [
-    x("button.filter-box-toggle")({ onclick: toggle }, "filters"),
+    x("div.filter-box-toggle")({ onclick: toggle }, "filters"),
     x("div")(
       { class: classes },
       x("span.close")({ onclick: toggle }, "x"),

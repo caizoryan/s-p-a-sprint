@@ -468,10 +468,17 @@ a {
   bottom: @unit;
   right: @unit;
 
+  .medium({
+    width: 85vw;
+    right: 7.5vw;
+    padding: (@unit);
+  });
+
   z-index: 1000;
 
   padding: (@unit);
   background-color: @dark;
+
   p {
     margin-top: (@unit);
     margin-bottom: (@unit / 4);
@@ -480,13 +487,22 @@ a {
   }
 
   &.hide {
-    right: -500px;
+    right: -100vw;
     opacity: 0;
+
+    .medium({
+      right: @unit;
+      bottom: -100vw;
+    });
   }
 
   &.show {
-    bottom: @unit;
+    right: @unit;
     opacity: 1;
+
+    .medium({
+      bottom: @unit;
+    });
   }
 
   .close {
@@ -503,14 +519,23 @@ a {
   &-toggle {
     all: unset;
     padding: (@unit / 2);
-    background-color: fade(@light, 40);
-    color: fade(@dark, 80);
+    background-color: @light;
+    color: @dark;
     box-shadow: @box-shadow-light;
     margin-right: (@unit / 4);
     margin-bottom: (@unit / 4);
     cursor: pointer;
     .font-heavy();
     font-weight: 300;
+    font-size: 1.3em;
+
+    .medium({
+      font-size: 1em;
+      width: 80vw;
+      left: 10vw;
+      padding: (@unit);
+      max-height: 5vh;
+    });
 
     position: fixed;
     bottom: @unit;
