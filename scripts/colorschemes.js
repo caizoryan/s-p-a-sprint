@@ -1,13 +1,15 @@
 const colorschemes = [
   {
-    c1: "#0c252c",
-    c2: "#f2f2f2",
+    c2: "#111",
+    c1: "#eee",
   },
   {
     c1: "#111",
     c2: "#eee",
   },
+];
 
+const extensions = [
   {
     c2: "#0c252c",
     c1: "#f2f2f2",
@@ -36,14 +38,14 @@ const colorschemes = [
     c1: "#d1e58c",
     c2: "#df7946",
   },
-
   {
     c1: "#82b5b8",
     c2: "#d95441",
   },
-];
-
-const extensions = [
+  {
+    c1: "#0c252c",
+    c2: "#f2f2f2",
+  },
   {
     c1: "#42532f",
     c2: "#d8c9c0",
