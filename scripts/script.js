@@ -77,7 +77,7 @@ const PressBox = (press) => {
   let large = (p) => p.large.url;
   let container = _("div.press__box");
 
-  console.log(press);
+  mounted(() => fade_in(".press__box"));
 
   return container(
     press_image_box(large(image)),

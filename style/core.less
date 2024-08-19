@@ -23,6 +23,8 @@
 
 @box-shadow: none;
 @box-shadow: 0px 0px 40px 10px fade(@darker, 80);
+
+@shadow: 0px 0px 40px 10px;
 // @box-shadow-light: 0px 0px 40px 10px fade(@darker, 20);
 @box-shadow-light: none;
 
@@ -277,6 +279,8 @@ a {
 
 .projects {
   display: grid;
+  margin-bottom: 5vh;
+  padding-bottom: 5vh;
   // grid-template-columns: repeat(2, 1fr);
   // grid-gap: (@unit * 2);
   //
@@ -560,7 +564,7 @@ a {
     background-color: @light;
     padding: (@unit / 2);
     color: @dark;
-    box-shadow: @box-shadow;
+    box-shadow: @shadow fade(@darker, 20);
     font-weight: 600;
   }
 }
