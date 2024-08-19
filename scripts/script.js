@@ -145,7 +145,6 @@ const Space = (num) => _("div.space")({ style: { height: num + "px" } });
 /* ===============================
    Final Page Put Together
    =============================== */
-const Mother = () =>
-  _("div.mother")(BackgroundGraphic, Menu, page_render, ColorButton);
+const Mother = () => _("div.mother")(BackgroundGraphic, Menu, page_render);
 
 render(Mother, document.body);

@@ -1,12 +1,155 @@
-import { mounted } from "./solid_monke/solid_monke.js";
+import { mounted, mut, mem, each, eff_on } from "./solid_monke/solid_monke.js";
 import { _ as x } from "./scripts/hyperaxe.js";
 import { fade_in } from "./transitions.js";
+import Glide from "./scripts/glide.modular.esm.js";
+import { sig } from "./solid_monke/solid_monke.js";
 
 /* ===============================
    Project
    =============================== */
 
 let { img } = x;
+
+let f_random = (a) => {
+  let ar = [...a];
+  for (let i = ar.length - 1; 0 < i; i--) {
+    const j = Math.floor(Math.random() * i);
+    [ar[i], ar[j]] = [ar[j], ar[i]];
+  }
+  return ar;
+};
+
+// let random = (arr) => {
+//   return [...arr].sort(() => Math.random() - 0.5);
+// };
+let alphabetical = (arr) => {
+  return [...arr].sort((a, b) => a.title.localeCompare(b.title));
+};
+
+let architecture = (arr) =>
+  [...arr].filter((p) => p.type.includes("architecture"));
+let interior = (arr) => [...arr].filter((p) => p.type.includes("interior"));
+
+let hospital = (arr) => [...arr].filter((p) => p.sub_type.includes("hospital"));
+let hospitality = (arr) =>
+  [...arr].filter((p) => p.sub_type.includes("hospitality"));
+let residential = (arr) =>
+  [...arr].filter((p) => p.sub_type.includes("residential"));
+let commercial = (arr) =>
+  [...arr].filter((p) => p.sub_type.includes("commercial"));
+
+let filter_map = mut({
+  data: [
+    { name: "random", filter: f_random, type: "sort", enabled: true },
+    {
+      name: "alphabetical",
+      filter: alphabetical,
+      type: "sort",
+      enabled: false,
+    },
+
+    {
+      name: "architecture",
+      filter: architecture,
+      type: "type",
+      enabled: false,
+    },
+    { name: "interior", filter: interior, type: "type", enabled: false },
+
+    { name: "hospital", filter: hospital, type: "sub_type", enabled: false },
+
+    {
+      name: "hospitality",
+      filter: hospitality,
+      type: "sub_type",
+      enabled: false,
+    },
+    {
+      name: "residential",
+      filter: residential,
+      type: "sub_type",
+      enabled: false,
+    },
+    {
+      name: "commercial",
+      filter: commercial,
+      type: "sub_type",
+      enabled: false,
+    },
+  ],
+});
+
+let filters = mem(() => {
+  return filter_map.data.filter((f) => f.enabled).map((f) => f.filter);
+});
+
+eff_on(filters, () => {
+  fade_in(".project");
+});
+
+const FilterButton = (f, onenable = () => {}, ondisable = () => {}) => {
+  let click = () => {
+    let to_enabled = f.enabled ? false : true;
+    to_enabled ? onenable() : ondisable();
+    f.enabled = to_enabled;
+  };
+
+  return x("button.filter-button")(
+    { onclick: click, active: () => f.enabled },
+    f.name,
+  );
+};
+
+const FilterBox = () => {
+  let filter_grouped = mem(() => {
+    let acc = {};
+    filter_map.data.forEach((f) => {
+      acc[f.type] = acc[f.type] || [];
+      acc[f.type].push(f);
+      return acc;
+    });
+
+    return acc;
+  });
+
+  let button = (f) => {
+    let onenable = () => {};
+    let ondisable = () => {};
+
+    if (f.type == "sort") {
+      onenable = () => {
+        filter_map.data.forEach((r) =>
+          r.type === "sort" ? (r.enabled = false) : null,
+        );
+      };
+      ondisable = () => {
+        filter_map.data.forEach((r) =>
+          r.type === "sort" ? (r.enabled = true) : null,
+        );
+      };
+    }
+
+    return FilterButton(f, onenable, ondisable);
+  };
+
+  let show = sig(false);
+  let toggle = () => show.set(!show());
+  let classes = () => "filter-box " + (show() ? "show" : "hide");
+
+  return [
+    x("button.filter-box-toggle")({ onclick: toggle }, "filters"),
+    x("div")(
+      { class: classes },
+      x("span.close")({ onclick: toggle }, "x"),
+      each(
+        () => Object.entries(filter_grouped()),
+        ([k, f]) => {
+          return x("div")(x("p")(k), each(f, button));
+        },
+      ),
+    ),
+  ];
+};
 
 export const projects = (projees) => {
   let large = (p) => p.image.large.url;
@@ -17,24 +160,46 @@ export const projects = (projees) => {
     return _p;
   };
 
-  mounted(() => fade_in(".project"));
+  mounted(() => fade_in(".projects"));
 
-  let projects = projees.map(clean_project).sort(() => Math.random() - 0.5);
-  let daddy = projects.map(Project);
+  let projects = projees.map(clean_project);
 
-  return x("div.projects")(daddy);
+  let filtered_projects = mem(() => {
+    let arr = projects;
+
+    console.log(filters());
+    filters().forEach((f) => (arr = f(arr)));
+
+    return arr;
+  });
+
+  return [FilterBox, x("div.projects")(each(filtered_projects, Project))];
 };
 
 const Project = (p) => {
   let { images, title, type, sub_type, id } = p;
 
-  let box = (id) => "div.project__img.sierra-" + id;
+  title = title.split("—")[1];
+
+  let box = (id) => "div.project__img";
   let image = (src) => img({ src });
   let element = (src, i) => x(box(id + "-" + i))(image(src));
 
-  let image_pair = images.map(element);
-  let image_pair_box = x("div.project__pair")(image_pair);
+  let image_elements = images.map(element);
+  let image_pair_box = x("div.project__img-container")(image_elements);
+  let metadata = x("div.project__metadata");
+
+  let type_element = x("div.project__type")("[", type.join(" & "), "]");
+  let sub_type_element = x("div.project__sub-type")(
+    "[",
+    sub_type.join(", "),
+    "]",
+  );
+
   let title_element = x("div.project__title")(title);
 
-  return x("div.project")(image_pair_box, title_element);
+  return x("div.project")(
+    image_pair_box,
+    metadata(title_element, type_element, sub_type_element),
+  );
 };
