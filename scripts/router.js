@@ -7,10 +7,10 @@ import page from "./scripts/page.js";
 
 const init = () => {
   page("/", () => cur_page.set("Home"));
-  page("/work", () => cur_page.set("Work"));
-  page("/press", () => cur_page.set("Press"));
-  page("/about", () => cur_page.set("About"));
-  page("/home", () => cur_page.set("Home"));
+  page("/#work", () => cur_page.set("Work"));
+  page("/#press", () => cur_page.set("Press"));
+  page("/#about", () => cur_page.set("About"));
+  page("/#home", () => cur_page.set("Home"));
   page();
 };
 
