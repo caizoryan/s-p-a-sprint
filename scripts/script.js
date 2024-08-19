@@ -67,10 +67,36 @@ let BackgroundGraphic = () => {
   return container(random_divs);
 };
 
+const PressBox = (press) => {
+  let { title, image } = press;
+  let { img } = _;
+  title = title.replace(/_/g, " ").split(".")[0];
+  const press_title = (t) => _("div.press__title")(t);
+  const press_image = (i) => img({ src: i });
+  const press_image_box = (i) => _("div.press__image")(press_image(i));
+  let large = (p) => p.large.url;
+  let container = _("div.press__box");
+
+  console.log(press);
+
+  return container(
+    press_image_box(large(image)),
+    // press_title(title)
+  );
+};
+
+const Press = (p) => {
+  const empty = () => _("div.press__box--empty");
+  let container = _("div.press-container");
+  let press_boxes = p.map(PressBox);
+
+  return _("div.press")(container(press_boxes));
+};
+
 let menu_items = [
   { text: "Home" },
   { text: "Work", render: () => projects(data.projects) },
-  { text: "Press" },
+  { text: "Press", render: () => Press(data.press[0].images) },
   { text: "About", render: About },
 ];
 

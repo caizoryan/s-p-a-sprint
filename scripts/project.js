@@ -13,7 +13,7 @@ export const projects = (projees) => {
 
   let clean_project = (p) => {
     let _p = { ...p };
-    _p.images = _p.images.map(large).splice(0, 2);
+    _p.images = _p.images.map(large).splice(0, 1);
     return _p;
   };
 
@@ -22,7 +22,7 @@ export const projects = (projees) => {
   let projects = projees.map(clean_project).sort(() => Math.random() - 0.5);
   let daddy = projects.map(Project);
 
-  return daddy;
+  return x("div.projects")(daddy);
 };
 
 const Project = (p) => {

@@ -14,32 +14,15 @@
 @c1: #0c252c;
 @c2: #f2f2f2;
 
-@c1: #5a6b9e;
-@c2: #d8c9c0;
-
-@c1: #42532f;
-@c2: #d8c9c0;
-
-@c1: #0c252c;
-@c2: #eb797c;
-
-@c2: #d2328b;
-@c1: #22437e;
-
-@c2: #f6f859;
-@c1: #d8c9c0;
-
-@c2: #22437e;
-@c1: #d8c9c0;
-
 @dark-mode: true;
-@dark: if((@dark-mode), @c2, #000);
-@light: if((@dark-mode), @c1, #fff);
+@dark: if((@dark-mode), @c2, @c1);
+@light: if((@dark-mode), @c1, @c2);
 
 @darker: if((luma(@dark) > luma(@light)), @light, @dark);
 @lighter: if((luma(@dark) > luma(@light)), @dark, @light);
 
 @box-shadow: 0px 0px 40px 10px fade(@darker, 80);
+@box-shadow-light: 0px 0px 40px 10px fade(@darker, 20);
 
 @unit: 1em;
 
@@ -56,6 +39,7 @@
 }
 
 body {
+  overflow-x: hidden;
   background-color: multiply(lighten(@dark, 80%), @light);
   font-size: 14px;
   .small({
@@ -66,10 +50,26 @@ body {
 button {
 }
 
+a {
+  all: unset;
+  cursor: pointer;
+  .font-low-sub-head();
+  text-decoration: underline;
+}
+
 .font-heavy() {
   font-family: "Roboto Mono", monospace;
   text-transform: uppercase;
   font-weight: 600;
+}
+
+.font-title-medium() {
+  font-family: "Roboto Mono", monospace;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  font-weight: 200;
+  //
+  // .font-low-head();
 }
 
 .font-sub-head() {
@@ -105,20 +105,32 @@ button {
   opacity: 0.5;
 }
 
+.menu {
+  background-color: lighten(@dark, 80%);
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+
+  .medium({
+    grid-template-rows: 2fr 2fr;
+  });
+
+  .small({
+    grid-template-rows: 3fr 1fr;
+  });
+  color: @light;
+}
+
 .menu-item() {
-  /* LAyout */
+  /* Layout */
   display: flex;
   justify-content: left;
-  align-items: end;
-
-  /* Sizing */
+  align-items: end; /* Sizing */
   padding: (@unit / 2);
-  padding-top: (@unit * 3);
-  font-size: 2rem;
+  font-size: 1.5em;
   .font-heavy();
 
   .medium({
-    font-size: 1.2rem;
+    font-size: 1em;
     padding-top: (@unit * 2);
   });
 
@@ -203,7 +215,7 @@ button {
     margin-top: 2vh;
 
     & > * {
-      padding: (@unit* 2);
+      padding: (@unit * 2);
 
       background-color: @dark;
       color: @light;
@@ -223,7 +235,7 @@ button {
     // border-top: 1px solid @light;
   }
 
-  &__name {
+  &__subhead {
     margin-top: (@unit / 2);
     .font-low-sub-head();
   }
@@ -260,6 +272,16 @@ button {
     linear-gradient(-45deg, transparent 75%, (@primary-color) 0);
 }
 
+.projects {
+  display: grid;
+  // grid-template-columns: repeat(2, 1fr);
+  // grid-gap: (@unit * 2);
+  //
+  // .medium({
+  //   grid-template-columns: 1fr;
+  // });
+}
+
 .project {
   @f: 20;
   .background-graphic(fade(@dark, @f), fade(@light, @f));
@@ -279,13 +301,17 @@ button {
   &__pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     grid-template-rows: 1fr;
     height: 60vh;
+
+    //*temp*//
+    grid-template-columns: 1fr;
+    height: 80vh;
 
     .medium({
       height: 100vh;
       grid-template-columns: 1fr;
-      grid-template-rows: 9fr 9fr;
       grid-gap: 10px;
     });
 
@@ -298,7 +324,7 @@ button {
     padding: (@unit / 2);
 
     background-color: @light;
-    .font-heavy();
+    .font-title-medium();
 
     color: @dark;
   }
@@ -326,11 +352,56 @@ button {
   }
 }
 
-.menu {
-  background-color: lighten(@dark, 80%);
-  display: grid;
-  grid-template-rows: 3fr 1fr;
-  color: @light;
+.press {
+  max-width: 100%;
+  &-container {
+    max-width: 100%;
+    display: grid;
+    margin-top: (@unit * 2);
+    grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+    grid-row-gap: (@unit*2);
+    padding-bottom: (@unit*3);
+
+    .medium({
+      grid-template-columns: 1fr;
+    });
+  }
+
+  &__box {
+    @f: 30;
+    @l: fade(@light, @f);
+    @d: fade(@dark, @f);
+    // .background-graphic(@d, @l);
+    height: (@unit * 25);
+
+    color: @light;
+
+    .medium({
+      height: 70vh;
+    });
+  }
+
+  &__image {
+    height: 100%;
+    // width: 100%;
+    box-shadow: @box-shadow-light;
+    // background-color: @dark;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__title {
+    .font-heavy();
+    padding: (@unit / 2);
+    // background-color: @dark;
+  }
+
+  img {
+    width: auto;
+    height: 100%;
+  }
 }
 
 .background-graphic {
