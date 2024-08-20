@@ -55,7 +55,7 @@ export let filter_map = mut({
       name: "architecture",
       filter: architecture,
       type: "type",
-      enabled: true,
+      enabled: false,
     },
     { name: "interior", filter: interior, type: "type", enabled: false },
 
