@@ -1,4 +1,23 @@
-const colorschemes = [
+import { change_colors } from "./script.js";
+
+const easteregg = () => {
+  colorschemes = colorschemes.concat(extensions);
+  new_timeout(3000);
+};
+
+const new_timeout = (time) => {
+  console.log("starting");
+  setTimeout(() => {
+    change_colors();
+    if (time > 100) new_timeout(time - time * 0.05);
+    else
+      setInterval(() => {
+        change_colors();
+      }, 100);
+  }, time);
+};
+
+let colorschemes = [
   {
     c2: "#111",
     c1: "#eee",
@@ -9,7 +28,7 @@ const colorschemes = [
   },
 ];
 
-const extensions = [
+let extensions = [
   {
     c2: "#0c252c",
     c1: "#f2f2f2",
@@ -64,4 +83,4 @@ const extensions = [
   },
 ];
 
-export default colorschemes;
+export { colorschemes, easteregg };

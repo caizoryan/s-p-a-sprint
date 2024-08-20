@@ -13,7 +13,7 @@ import { projects } from "./project.js";
 import { fade_in } from "./transitions.js";
 import { random_div } from "./randomdiv.js";
 import { About } from "./about.js";
-import colorschemes from "./colorschemes.js";
+import { colorschemes } from "./colorschemes.js";
 
 page_init();
 

@@ -5,6 +5,7 @@ import Glide from "./scripts/glide.modular.esm.js";
 import { sig } from "./solid_monke/solid_monke.js";
 import { q } from "./qs.js";
 import { page } from "./router.js";
+import { colorschemes, easteregg } from "./colorschemes.js";
 
 /* ===============================
    Project
@@ -89,6 +90,7 @@ eff_on(filters, () => {
   fade_in(".project");
   let filter_qs = { f: filters().map((f) => f.name) };
   let r = q.stringify(filter_qs);
+
   setTimeout(() => {
     page("/work?" + r);
   }, 100);
@@ -204,6 +206,22 @@ const Project = (p) => {
   let metadata = x("div.project__metadata");
 
   let type_element = x("div.project__type")("[", type.join(" & "), "]");
+  let extra = {};
+
+  if (title.includes("Pashine")) {
+    let couter = 0;
+    let click = () => {
+      console.log("click");
+      couter += 1;
+      if (couter == 20) {
+        easteregg();
+        console.log(colorschemes);
+      }
+    };
+
+    extra = { onclick: click };
+  }
+
   let sub_type_element = x("div.project__sub-type")(
     "[",
     sub_type.join(", "),
@@ -214,6 +232,6 @@ const Project = (p) => {
 
   return x("div.project")(
     image_pair_box,
-    metadata(title_element, type_element, sub_type_element),
+    metadata(extra, title_element, type_element, sub_type_element),
   );
 };
