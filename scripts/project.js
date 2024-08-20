@@ -3,6 +3,8 @@ import { _ as x } from "./scripts/hyperaxe.js";
 import { fade_in } from "./transitions.js";
 import Glide from "./scripts/glide.modular.esm.js";
 import { sig } from "./solid_monke/solid_monke.js";
+import { q } from "./qs.js";
+import { page } from "./router.js";
 
 /* ===============================
    Project
@@ -38,7 +40,7 @@ let residential = (arr) =>
 let commercial = (arr) =>
   [...arr].filter((p) => p.sub_type.includes("commercial"));
 
-let filter_map = mut({
+export let filter_map = mut({
   data: [
     { name: "random", filter: f_random, type: "sort", enabled: true },
     {
@@ -85,10 +87,22 @@ let filters = mem(() => {
 
 eff_on(filters, () => {
   fade_in(".project");
+  let filter_qs = { f: filters().map((f) => f.name) };
+  let r = q.stringify(filter_qs);
+  setTimeout(() => {
+    page("/work?" + r);
+  }, 100);
 });
 
 const FilterButton = (f, onenable = () => {}, ondisable = () => {}) => {
   let click = () => {
+    let query = { filters: ["arch", "ran"] };
+    let r = q.stringify(query);
+    console.log(r);
+
+    let d = q.parse(r);
+    console.log(d);
+
     let to_enabled = f.enabled ? false : true;
     to_enabled ? onenable() : ondisable();
     f.enabled = to_enabled;

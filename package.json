@@ -15,6 +15,12 @@
   "dependencies": {
     "express": "^4.19.2",
     "hyperaxe": "^2.0.1",
+    "qs": "^6.13.0",
+    "query-string": "^9.1.0",
+    "rollup": "^4.21.0",
     "siema": "^1.5.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3"
   }
 }
