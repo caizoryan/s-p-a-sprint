@@ -43,19 +43,19 @@ let commercial = (arr) =>
 
 export let filter_map = mut({
   data: [
-    { name: "random", filter: f_random, type: "sort", enabled: true },
+    { name: "random", filter: f_random, type: "sort", enabled: false },
     {
       name: "alphabetical",
       filter: alphabetical,
       type: "sort",
-      enabled: false,
+      enabled: true,
     },
 
     {
       name: "architecture",
       filter: architecture,
       type: "type",
-      enabled: false,
+      enabled: true,
     },
     { name: "interior", filter: interior, type: "type", enabled: false },
 
@@ -89,11 +89,13 @@ let filters = mem(() => {
 eff_on(filters, () => {
   fade_in(".project");
   let filter_qs = { f: filters().map((f) => f.name) };
-  let r = q.stringify(filter_qs);
 
-  setTimeout(() => {
-    page("/work?" + r);
-  }, 100);
+  if (window.location.href.includes("/work")) {
+    let r = q.stringify(filter_qs);
+    setTimeout(() => {
+      page("/work?" + r);
+    }, 100);
+  }
 });
 
 const FilterButton = (f, onenable = () => {}, ondisable = () => {}) => {
@@ -202,7 +204,8 @@ const Project = (p) => {
   let element = (src, i) => x(box(id + "-" + i))(image(src));
 
   let image_elements = images.map(element);
-  let image_pair_box = x("div.project__img-container")(image_elements);
+  // let image_pair_box = x("div.project__img-container")(image_elements);
+  let image_pair_box = image_elements;
   let metadata = x("div.project__metadata");
 
   let type_element = x("div.project__type")("[", type.join(" & "), "]");
@@ -211,11 +214,11 @@ const Project = (p) => {
   if (title.includes("Pashine")) {
     let couter = 0;
     let click = () => {
-      console.log("click");
       couter += 1;
+      console.log("click");
       if (couter == 20) {
+        console.log("easteregg!");
         easteregg();
-        console.log(colorschemes);
       }
     };
 

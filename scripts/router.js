@@ -2,6 +2,7 @@ import { sig } from "./solid_monke/solid_monke.js";
 import page from "./scripts/page.js";
 import { q } from "./qs.js";
 import { filter_map } from "./project.js";
+import { easteregg } from "./colorschemes.js";
 
 /* ===============================
    Router 
@@ -10,6 +11,13 @@ import { filter_map } from "./project.js";
 const init = () => {
   page("*", (ctx, next) => {
     ctx.query = q.parse(ctx.querystring);
+
+    if (ctx.query.easteregg) {
+      let e = ctx.query.easteregg;
+      if (Array.isArray(e)) easteregg(...e);
+      if (typeof parseFloat(e) == "number") easteregg(parseFloat(e));
+      else easteregg();
+    }
     next();
   });
 

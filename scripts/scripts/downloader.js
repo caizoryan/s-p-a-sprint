@@ -1,5 +1,9 @@
+let force = "&force=true";
+// let host = "http://localhost:3000/";
+let host = "https://api.are.na/v2/";
+
 let projects_fetch = await fetch(
-  "http://localhost:3000/api/channels/projects-9gn8-7a04c4?per=100",
+  host + "channels/projects-9gn8-7a04c4?per=100" + force,
   {
     headers: {
       Authorization: "Bearer AR8bT4Qm7_OSqK_msk_s1erLeesL4Dd6WdSGerWVQKQ",
@@ -19,14 +23,11 @@ for (let i = 0; i < projects_fetch.length; i++) {
   });
 }
 
-let press_fetch = await fetch(
-  "http://localhost:3000/api/channels/press-x28lxexyowi?per=100",
-  {
-    headers: {
-      Authorization: "Bearer AR8bT4Qm7_OSqK_msk_s1erLeesL4Dd6WdSGerWVQKQ",
-    },
+let press_fetch = await fetch(host + "channels/press-x28lxexyowi?per=100", {
+  headers: {
+    Authorization: "Bearer AR8bT4Qm7_OSqK_msk_s1erLeesL4Dd6WdSGerWVQKQ",
   },
-)
+})
   .then((res) => res.json())
   .then((res) => res.contents);
 console.log(press_fetch.title);
@@ -52,7 +53,7 @@ await Bun.write(
 //
 
 function format_projects(projects) {
-  return projects.map((p) => {
+  let p = projects.map((p) => {
     let title = p.title;
     let id = p.id;
 
@@ -61,6 +62,7 @@ function format_projects(projects) {
     let type = p.contents
       .filter((x) => x.title == "type")
       .map((x) => x.content);
+
     let sub_type = p.contents
       .filter((x) => x.title == "sub_type")
       ?.map((x) => x.content);
@@ -74,6 +76,8 @@ function format_projects(projects) {
 
     return { title, type, id, images, sub_type, completed };
   });
+
+  return p;
 }
 
 function format_press(press) {
@@ -95,14 +99,11 @@ function format_press(press) {
 // -------------------------
 // UTILS
 async function get_channel(id) {
-  let project = await fetch(
-    "http://localhost:3000/api/channels/" + id + "?per=100",
-    {
-      headers: {
-        Authorization: "Bearer AR8bT4Qm7_OSqK_msk_s1erLeesL4Dd6WdSGerWVQKQ",
-      },
+  let project = await fetch(host + "channels/" + id + "?per=100", {
+    headers: {
+      Authorization: "Bearer AR8bT4Qm7_OSqK_msk_s1erLeesL4Dd6WdSGerWVQKQ",
     },
-  ).then((res) => res.json());
+  }).then((res) => res.json());
 
   console.log(project.title);
   return project;

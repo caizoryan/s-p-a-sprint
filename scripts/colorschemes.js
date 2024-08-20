@@ -1,26 +1,25 @@
 import { change_colors } from "./script.js";
 
-const easteregg = () => {
+const easteregg = (t = 3000, rate = 0.05, cutoff = 800) => {
   colorschemes = colorschemes.concat(extensions);
-  new_timeout(3000);
+  new_timeout(t, rate, cutoff);
 };
 
-const new_timeout = (time) => {
-  console.log("starting");
+const new_timeout = (time, rate, cutoff) => {
   setTimeout(() => {
     change_colors();
     if (time > 100) new_timeout(time - time * 0.05);
     else
       setInterval(() => {
         change_colors();
-      }, 100);
+      }, 800);
   }, time);
 };
 
 let colorschemes = [
   {
-    c2: "#111",
-    c1: "#eee",
+    c1: "#110",
+    c2: "#eee",
   },
   {
     c1: "#111",

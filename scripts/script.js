@@ -61,7 +61,9 @@ let BackgroundGraphic = () => {
   let container = _("div.background-graphic");
   let random_divs = mem(() => {
     if (colors()) {
-      return Array(10).fill(0).map(random_div);
+      let c = 10;
+      // if (cur_page() == "Work") c = 0;
+      return Array(c).fill(0).map(random_div);
     }
   });
   return container(random_divs);
