@@ -100,13 +100,6 @@ eff_on(filters, () => {
 
 const FilterButton = (f, onenable = () => {}, ondisable = () => {}) => {
   let click = () => {
-    let query = { filters: ["arch", "ran"] };
-    let r = q.stringify(query);
-    console.log(r);
-
-    let d = q.parse(r);
-    console.log(d);
-
     let to_enabled = f.enabled ? false : true;
     to_enabled ? onenable() : ondisable();
     f.enabled = to_enabled;
@@ -115,6 +108,12 @@ const FilterButton = (f, onenable = () => {}, ondisable = () => {}) => {
   return x("button.filter-button")(
     { onclick: click, active: () => f.enabled },
     f.name,
+  );
+};
+
+const disable_all = (type) => {
+  filter_map.data.forEach((r) =>
+    r.type === type ? (r.enabled = false) : null,
   );
 };
 
@@ -131,21 +130,8 @@ const FilterBox = () => {
   });
 
   let button = (f) => {
-    let onenable = () => {};
-    let ondisable = () => {};
-
-    if (f.type == "sort") {
-      onenable = () => {
-        filter_map.data.forEach((r) =>
-          r.type === "sort" ? (r.enabled = false) : null,
-        );
-      };
-      ondisable = () => {
-        filter_map.data.forEach((r) =>
-          r.type === "sort" ? (r.enabled = true) : null,
-        );
-      };
-    }
+    let onenable = () => disable_all(f.type);
+    let ondisable = () => disable_all(f.type);
 
     return FilterButton(f, onenable, ondisable);
   };

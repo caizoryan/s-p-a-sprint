@@ -139,21 +139,6 @@ a {
   opacity: 0.5;
 }
 
-.menu {
-  background-color: lighten(@dark, 80%);
-  display: grid;
-  grid-template-rows: 3fr 1fr;
-
-  .medium({
-    grid-template-rows: 2fr 2fr;
-  });
-
-  .small({
-    grid-template-rows: 3fr 1fr;
-  });
-  color: @light;
-}
-
 .menu-item() {
   /* Layout */
   display: flex;
@@ -165,7 +150,7 @@ a {
 
   .medium({
     font-size: 1em;
-    padding-top: (@unit * 2);
+    padding: (@unit);
   });
 
   /* Colors */
@@ -173,27 +158,37 @@ a {
   color: @dark;
 }
 
-.menu__button__container {
+.menu {
+  background-color: lighten(@dark, 80%);
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-rows: 3fr 1fr;
 
-  .small({
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-
+  .medium({
+    display: block;
   });
 
-  & > * {
-    .menu-item();
-    &[current="true"] {
-      background-color: lighten(@dark, 80%);
-      background-color: @dark;
-      color: @light;
-      box-shadow: @box-shadow;
-    }
-    &:hover {
-      cursor: pointer;
-      box-shadow: @box-shadow;
+  color: @light;
+
+  &__button__container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    .small({
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    });
+
+    & > * {
+      .menu-item();
+      &[current="true"] {
+        background-color: lighten(@dark, 80%);
+        background-color: @dark;
+        color: @light;
+        box-shadow: @box-shadow;
+      }
+      &:hover {
+        cursor: pointer;
+        box-shadow: @box-shadow;
+      }
     }
   }
 }
@@ -202,6 +197,10 @@ a {
   display: grid;
   grid-template-columns: 2fr 1fr;
   width: 100%;
+
+  .small({
+    grid-template-columns: 1fr;
+  });
 
   &__label {
     background-color: @light;
@@ -214,12 +213,17 @@ a {
 
     font-size: 2em;
     font-weight: 300;
+
+    .small({
+      font-size: 1.5em;
+    });
     font-family: "Roboto Mono", monospace;
     text-transform: uppercase;
     padding: (@unit / 2);
 
     display: flex;
   }
+
   &__empty-black {
     background-color: @dark;
 
@@ -227,6 +231,9 @@ a {
     .font-heavy();
 
     padding: (@unit / 2);
+    .small({
+      display: none;
+    });
   }
 }
 
@@ -509,6 +516,8 @@ a {
     color: @light;
     .font-heavy();
   }
+
+  transition: all 0.3s;
 
   &.hide {
     right: -100vw;
