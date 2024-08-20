@@ -141,10 +141,10 @@ const FilterBox = () => {
   let classes = () => "filter-box " + (show() ? "show" : "hide");
 
   return [
-    x("div.filter-box-toggle")({ onclick: toggle }, "filters"),
+    x("button.filter-box-toggle")({ onclick: toggle }, "filters"),
     x("div")(
       { class: classes },
-      x("span.close")({ onclick: toggle }, "x"),
+      x("button.close")({ onclick: toggle }, "x"),
       each(
         () => Object.entries(filter_grouped()),
         ([k, f]) => {

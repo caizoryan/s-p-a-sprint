@@ -58,6 +58,7 @@ body {
 }
 
 button {
+  all: unset;
 }
 
 a {
@@ -543,9 +544,10 @@ a {
     font-weight: 100;
     cursor: pointer;
     font-size: 1.5em;
+    padding: (@unit);
     position: absolute;
-    top: (@unit / 2);
-    right: (@unit);
+    top: 0;
+    right: 0;
     color: @light;
   }
 
