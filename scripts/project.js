@@ -192,8 +192,8 @@ let description = () => {
     let words = ["all"];
     if (type || sub_type) words = [];
 
-    if (type) words.push(type);
     if (sub_type) words.push(sub_type);
+    if (type) words.push(type);
 
     if (!type && !sub_type) {
       return "Showing all projects";
