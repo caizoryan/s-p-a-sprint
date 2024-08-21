@@ -6,6 +6,7 @@ import { sig } from "./solid_monke/solid_monke.js";
 import { q } from "./qs.js";
 import { page } from "./router.js";
 import { colorschemes, easteregg } from "./colorschemes.js";
+import { change_colors } from "./script.js";
 
 /* ===============================
    Project
@@ -98,8 +99,9 @@ eff_on(filters, () => {
   }
 });
 
-const FilterButton = (f, onenable = () => {}, ondisable = () => {}) => {
+const FilterButton = (f, onenable = () => { }, ondisable = () => { }) => {
   let click = () => {
+    change_colors();
     let to_enabled = f.enabled ? false : true;
     to_enabled ? onenable() : ondisable();
     f.enabled = to_enabled;
@@ -136,8 +138,23 @@ const FilterBox = () => {
     return FilterButton(f, onenable, ondisable);
   };
 
-  let show = sig(false);
-  let toggle = () => show.set(!show());
+  let s = localStorage.getItem("show_filters");
+  if (s === null) s = true;
+
+  console.log("s", s);
+  const parseBool = (s) => {
+    if (s === "true") return true;
+    if (s === "false") return false;
+    return s;
+  };
+
+  let show = sig(parseBool(s));
+  let toggle = () => {
+    show.set(!show());
+    console.log("show", show());
+    localStorage.setItem("show_filters", show());
+    console.log("l_show, ", localStorage.getItem("show_filters"));
+  };
   let classes = () => "filter-box " + (show() ? "show" : "hide");
 
   return [
@@ -153,6 +170,39 @@ const FilterBox = () => {
       ),
     ),
   ];
+};
+
+let description = () => {
+  mounted(() => fade_in(".projects__showing"));
+  let description = x("div.projects__showing-text");
+  let description_text = mem(() => {
+    let type = filter_map.data
+      .filter((f) => f.type === "type")
+      .find((f) => f.enabled);
+
+    let sub_type = filter_map.data
+      .filter((f) => f.type === "sub_type")
+      .find((f) => f.enabled);
+
+    console.log(type, sub_type);
+
+    type = type ? type.name : null;
+    sub_type = sub_type ? sub_type.name : null;
+
+    let words = ["all"];
+    if (type || sub_type) words = [];
+
+    if (type) words.push(type);
+    if (sub_type) words.push(sub_type);
+
+    if (!type && !sub_type) {
+      return "Showing all projects";
+    }
+
+    return "Showing " + words.join(", ") + " projects";
+  });
+
+  return x("div.projects__showing")(x("div"), description(description_text));
 };
 
 export const projects = (projees) => {
@@ -177,7 +227,11 @@ export const projects = (projees) => {
     return arr;
   });
 
-  return [FilterBox, x("div.projects")(each(filtered_projects, Project))];
+  return [
+    FilterBox,
+    description,
+    x("div.projects")(each(filtered_projects, Project)),
+  ];
 };
 
 const Project = (p) => {

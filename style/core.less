@@ -329,6 +329,31 @@ a {
   .medium({
     grid-template-columns: 1fr;
   });
+
+  &__showing {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    .medium({
+      grid-template-columns: 0.1fr 1fr;
+    });
+
+    &-text {
+      display: flex;
+      justify-content: end;
+      background-color: @dark;
+      color: @light;
+
+      padding: (@unit / 2);
+
+      font-size: 2em;
+      .medium({
+        font-size: 1.5em;
+      });
+      .f-uppercase;
+      .f-medium();
+      // .f-roboto();
+    }
+  }
 }
 
 .project {
