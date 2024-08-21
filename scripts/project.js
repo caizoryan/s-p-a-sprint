@@ -199,11 +199,13 @@ let description = () => {
       return "Showing all projects";
     }
 
-    return "Showing " + words.join(", ") + " projects";
+    return "Showing " + "(" + count() + ") " + words.join(", ") + " projects";
   });
 
   return x("div.projects__showing")(x("div"), description(description_text));
 };
+
+let count;
 
 export const projects = (projees) => {
   let large = (p) => p.image.large.url;
@@ -226,6 +228,8 @@ export const projects = (projees) => {
 
     return arr;
   });
+
+  count = mem(() => filtered_projects().length);
 
   return [
     FilterBox,
