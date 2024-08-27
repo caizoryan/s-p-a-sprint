@@ -618,7 +618,7 @@ function parseUrl(url, options) {
 	return {
 		url: url_?.split('?')?.[0] ?? '',
 		query: parse(extract(url), options),
-		...(options && options.parseFragmentIdentifier && hash ? {fragmentIdentifier: decode(hash, options)} : {}),
+		...(options && options.parseFragmentIdentifier && hash ? { fragmentIdentifier: decode(hash, options) } : {}),
 	};
 }
 
@@ -634,7 +634,7 @@ function stringifyUrl(object, options) {
 	const queryFromUrl = extract(object.url);
 
 	const query = {
-		...parse(queryFromUrl, {sort: false}),
+		...parse(queryFromUrl, { sort: false }),
 		...object.query,
 	};
 
@@ -658,7 +658,7 @@ function pick(input, filter, options) {
 		...options,
 	};
 
-	const {url, query, fragmentIdentifier} = parseUrl(input, options);
+	const { url, query, fragmentIdentifier } = parseUrl(input, options);
 
 	return stringifyUrl({
 		url,

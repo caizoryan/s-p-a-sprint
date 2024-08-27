@@ -1,4 +1,4 @@
-import { _ } from "./scripts/hyperaxe.js";
+import { x } from "./scripts/hyperaxe.js";
 import { mounted } from "./solid_monke/solid_monke.js";
 import { fade_in } from "./transitions.js";
 
@@ -19,5 +19,5 @@ export let random_div = () => {
 
   mounted(() => fade_in(".random-div"));
 
-  return _("div.random-div")({ style });
+  return x("div.random-div")({ style });
 };

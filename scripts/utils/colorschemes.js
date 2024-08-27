@@ -1,9 +1,11 @@
-import { change_colors } from "./script.js";
+import { sig, eff } from "./solid_monke/solid_monke.js";
 
 const easteregg = (t = 3000, rate = 0.05, cutoff = 800) => {
   colorschemes = colorschemes.concat(extensions);
   new_timeout(t, rate, cutoff);
 };
+
+const css = (...args) => less.modifyVars(...args);
 
 const new_timeout = (time, rate, cutoff) => {
   setTimeout(() => {
@@ -26,6 +28,29 @@ let colorschemes = [
     c2: "#eee",
   },
 ];
+
+export let colors = sig(colorschemes[0]);
+
+eff(() =>
+  css({
+    "@c1": colors().c1,
+    "@c2": colors().c2,
+  }),
+);
+
+export function change_colors() {
+  const random_item = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  let recursive_new = () => {
+    let new_colors = random_item(colorschemes);
+    while (new_colors.c1 == colors().c1 && new_colors.c2 == colors().c2) {
+      new_colors = random_item(colorschemes);
+    }
+    return new_colors;
+  };
+  colors.set(recursive_new());
+}
+
+export { colorschemes, easteregg };
 
 let extensions = [
   {
@@ -81,5 +106,3 @@ let extensions = [
     c2: "#d8c9c0",
   },
 ];
-
-export { colorschemes, easteregg };

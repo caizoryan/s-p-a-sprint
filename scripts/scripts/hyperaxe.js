@@ -64,7 +64,7 @@ function isObject(val) {
   return val != null && typeof val === "object" && Array.isArray(val) === false;
 }
 
-export const _ = createFactory(h);
+export const x = createFactory(h);
 
 // module.exports.createFactory = createFactory
 // module.exports.getFactory = getFactory

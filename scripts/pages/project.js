@@ -1,12 +1,11 @@
-import { mounted, mut, mem, each, eff_on } from "./solid_monke/solid_monke.js";
-import { _ as x } from "./scripts/hyperaxe.js";
-import { fade_in } from "./transitions.js";
-import Glide from "./scripts/glide.modular.esm.js";
-import { sig } from "./solid_monke/solid_monke.js";
-import { q } from "./qs.js";
-import { page } from "./router.js";
-import { colorschemes, easteregg } from "./colorschemes.js";
-import { change_colors } from "./script.js";
+import { mounted, mut, mem, each, eff_on } from "../solid_monke/solid_monke.js";
+import { x } from "../scripts/hyperaxe.js";
+import { fade_in } from "../utils/transitions.js";
+import { sig } from "../solid_monke/solid_monke.js";
+import { q } from "../utils/qs.js";
+import { page } from "../router.js";
+import { easteregg } from "../utils/colorschemes.js";
+import { change_colors } from "../utils/colorschemes.js";
 
 /* ===============================
    Project
@@ -23,13 +22,9 @@ let f_random = (a) => {
   return ar;
 };
 
-// let random = (arr) => {
-//   return [...arr].sort(() => Math.random() - 0.5);
-// };
 let alphabetical = (arr) => {
   return [...arr].sort((a, b) => a.title.localeCompare(b.title));
 };
-
 let architecture = (arr) =>
   [...arr].filter((p) => p.type.includes("architecture"));
 let interior = (arr) => [...arr].filter((p) => p.type.includes("interior"));
@@ -141,7 +136,6 @@ const FilterBox = () => {
   let s = localStorage.getItem("show_filters");
   if (s === null) s = true;
 
-  console.log("s", s);
   const parseBool = (s) => {
     if (s === "true") return true;
     if (s === "false") return false;
@@ -151,9 +145,7 @@ const FilterBox = () => {
   let show = sig(parseBool(s));
   let toggle = () => {
     show.set(!show());
-    console.log("show", show());
     localStorage.setItem("show_filters", show());
-    console.log("l_show, ", localStorage.getItem("show_filters"));
   };
   let classes = () => "filter-box " + (show() ? "show" : "hide");
 
@@ -183,8 +175,6 @@ let description = () => {
     let sub_type = filter_map.data
       .filter((f) => f.type === "sub_type")
       .find((f) => f.enabled);
-
-    console.log(type, sub_type);
 
     type = type ? type.name : null;
     sub_type = sub_type ? sub_type.name : null;
@@ -223,7 +213,6 @@ export const projects = (projees) => {
   let filtered_projects = mem(() => {
     let arr = projects;
 
-    console.log(filters());
     filters().forEach((f) => (arr = f(arr)));
 
     return arr;
