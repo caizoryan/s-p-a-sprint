@@ -1,4 +1,4 @@
-import { $$ } from "./solid_monke/solid_monke.js";
+import { $$ } from "../solid_monke/solid_monke.js";
 const fade_in = (selector, r = 100) => {
   $$(selector).forEach((e) => {
     e.style.opacity = 0;

@@ -4,8 +4,7 @@ import { fade_in } from "../utils/transitions.js";
 import { sig } from "../solid_monke/solid_monke.js";
 import { q } from "../utils/qs.js";
 import { page } from "../router.js";
-import { easteregg } from "../utils/colorschemes.js";
-import { change_colors } from "../utils/colorschemes.js";
+import { easteregg, change_colors } from "../utils/colorschemes.js";
 
 /* ===============================
    Project
@@ -21,6 +20,10 @@ let f_random = (a) => {
   }
   return ar;
 };
+
+let sqft = (arr) => {
+  return [...arr].sort((a, b) => b.sqft - a.sqft);
+}
 
 let alphabetical = (arr) => {
   return [...arr].sort((a, b) => a.title.localeCompare(b.title));
@@ -39,14 +42,6 @@ let commercial = (arr) =>
 
 export let filter_map = mut({
   data: [
-    { name: "random", filter: f_random, type: "sort", enabled: false },
-    {
-      name: "alphabetical",
-      filter: alphabetical,
-      type: "sort",
-      enabled: true,
-    },
-
     {
       name: "architecture",
       filter: architecture,
@@ -79,7 +74,7 @@ export let filter_map = mut({
 });
 
 let filters = mem(() => {
-  return filter_map.data.filter((f) => f.enabled).map((f) => f.filter);
+  return [sqft, ...filter_map.data.filter((f) => f.enabled).map((f) => f.filter)];
 });
 
 eff_on(filters, () => {
@@ -248,9 +243,7 @@ const Project = (p) => {
     let couter = 0;
     let click = () => {
       couter += 1;
-      console.log("click");
       if (couter == 20) {
-        console.log("easteregg!");
         easteregg();
       }
     };

@@ -5,12 +5,12 @@ import {
 import { x } from "./scripts/hyperaxe.js";
 import { page_init, cur_page } from "./router.js";
 import { data } from "./data/data.js";
-import { projects } from "./project.js";
+import { projects } from "./pages/project.js";
 import { random_div } from "./randomdiv.js";
-import { About } from "./about.js";
-import { Press } from "./press.js";
-import { Menu } from "./menu.js";
-import { colors } from "./colorschemes.js";
+import { About } from "./pages/about.js";
+import { Press } from "./pages/press.js";
+import { Menu } from "./pages/menu.js";
+import { colors } from "./utils/colorschemes.js";
 
 page_init();
 
@@ -44,5 +44,9 @@ let CurrentPage = mem(() => {
    Final Page Put Together
    =============================== */
 const Mother = () => x("div.mother")(BackgroundGraphic, Menu, CurrentPage);
-
+// const Mother = () => x("div.mother")();
+//
 render(Mother, document.body);
+//
+
+console.log("FUCKING ASS HOLE")

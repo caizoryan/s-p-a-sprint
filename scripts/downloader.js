@@ -63,6 +63,8 @@ function format_projects(projects) {
       .filter((x) => x.title == "type")
       .map((x) => x.content);
 
+    let sqft = p.contents.find((x) => x.title == "sqft")?.content;
+
     let sub_type = p.contents
       .filter((x) => x.title == "sub_type")
       ?.map((x) => x.content);
@@ -74,7 +76,7 @@ function format_projects(projects) {
         image: i.image,
       }));
 
-    return { title, type, id, images, sub_type, completed };
+    return { title, type, id, images, sub_type, completed, sqft };
   });
 
   return p;

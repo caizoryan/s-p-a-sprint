@@ -1,6 +1,6 @@
-import { x } from "./scripts/hyperaxe.js";
-import { mounted } from "./solid_monke/solid_monke.js";
-import { fade_in } from "./transitions.js";
+import { x } from "../scripts/hyperaxe.js";
+import { mounted } from "../solid_monke/solid_monke.js";
+import { fade_in } from "../utils/transitions.js";
 
 let { div, p, h1, a } = x;
 

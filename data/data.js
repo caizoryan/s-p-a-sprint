@@ -62,7 +62,8 @@ export const data = {
       "sub_type": [
         "Hospital"
       ],
-      "completed": "false"
+      "completed": "false",
+      "sqft": "35000"
     },
     {
       "title": "— Adisun Elite",
@@ -100,7 +101,8 @@ export const data = {
       "sub_type": [
         "Commercial"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "18000"
     },
     {
       "title": "— Andaman Villa",
@@ -238,7 +240,8 @@ export const data = {
       "sub_type": [
         "residential"
       ],
-      "completed": "false"
+      "completed": "false",
+      "sqft": "3000"
     },
     {
       "title": "— Awchat Residence",
@@ -526,7 +529,8 @@ export const data = {
       "sub_type": [
         "residential"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "5000"
     },
     {
       "title": "— Bachwani Residence",
@@ -839,7 +843,8 @@ export const data = {
       "sub_type": [
         "Residential"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "5000"
     },
     {
       "title": "— Bhave Institute of Mental Health",
@@ -1052,7 +1057,8 @@ export const data = {
       "sub_type": [
         "hospital"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "75000"
     },
     {
       "title": "— Byjus Office 2021",
@@ -1240,7 +1246,8 @@ export const data = {
       "sub_type": [
         "office"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "20000"
     },
     {
       "title": "— Byjus Office 2022",
@@ -1403,7 +1410,8 @@ export const data = {
       "sub_type": [
         "office"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "10000"
     },
     {
       "title": "— Dara Residence",
@@ -1466,7 +1474,8 @@ export const data = {
       "sub_type": [
         "residential"
       ],
-      "completed": "false"
+      "completed": "false",
+      "sqft": "10000"
     },
     {
       "title": "— Dr Garg Clinic",
@@ -1679,7 +1688,8 @@ export const data = {
       "sub_type": [
         "Hospital"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "4000"
     },
     {
       "title": "— Fadnavis Residence",
@@ -2182,7 +2192,8 @@ export const data = {
       "sub_type": [
         "residential"
       ],
-      "completed": "false"
+      "completed": "false",
+      "sqft": "18000"
     },
     {
       "title": "— Java Cafe",
@@ -2445,7 +2456,8 @@ export const data = {
       "sub_type": [
         "hospitality"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "2000"
     },
     {
       "title": "— Katol Bank",
@@ -3147,7 +3159,8 @@ export const data = {
       "sub_type": [
         "residential"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "1800"
     },
     {
       "title": "— Mother Care Nursing",
@@ -3410,7 +3423,8 @@ export const data = {
       "sub_type": [
         "hospital"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "3000"
     },
     {
       "title": "— Mukewar Farmhouse",
@@ -3599,7 +3613,8 @@ export const data = {
       "sub_type": [
         "Residential"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "4000"
     },
     {
       "title": "— Pashine Residence",
@@ -3887,7 +3902,8 @@ export const data = {
       "sub_type": [
         "residential"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "1800"
     },
     {
       "title": "— Perficient Cafe",
@@ -4025,7 +4041,8 @@ export const data = {
       "sub_type": [
         "Hospitality"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "10000"
     },
     {
       "title": "— Perficient Office",
@@ -4413,7 +4430,8 @@ export const data = {
       "sub_type": [
         "office"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "25000"
     },
     {
       "title": "— Satish Saree",
@@ -4552,7 +4570,8 @@ export const data = {
       "sub_type": [
         "commercial"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "4000"
     },
     {
       "title": "— Seller Drive",
@@ -4790,7 +4809,8 @@ export const data = {
       "sub_type": [
         "office"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "4000"
     },
     {
       "title": "— Shubhamangalam Boutique",
@@ -4981,7 +5001,7 @@ export const data = {
       "completed": "true"
     },
     {
-      "title": "— Singapore City",
+      "title": "— Merlion Club",
       "type": [
         "architecture",
         "interior"
@@ -5667,7 +5687,8 @@ export const data = {
       "sub_type": [
         "hospitality"
       ],
-      "completed": "false"
+      "completed": "false",
+      "sqft": "60000"
     },
     {
       "title": "— Ultratech Office",
@@ -5830,7 +5851,8 @@ export const data = {
       "sub_type": [
         "office"
       ],
-      "completed": "true"
+      "completed": "true",
+      "sqft": "10000"
     },
     {
       "title": "— Altair",
@@ -5967,7 +5989,8 @@ export const data = {
       ],
       "sub_type": [
         "residential"
-      ]
+      ],
+      "sqft": "300000"
     },
     {
       "title": "— Budhwaar Bazaar",
@@ -6205,10 +6228,11 @@ export const data = {
       "sub_type": [
         "commercial",
         "hospital"
-      ]
+      ],
+      "sqft": "500000"
     },
     {
-      "title": "— The Crest",
+      "title": "— Navrang 27",
       "type": [
         "architecture"
       ],
@@ -6292,7 +6316,8 @@ export const data = {
       ],
       "sub_type": [
         "commercial"
-      ]
+      ],
+      "sqft": "300000"
     },
     {
       "title": "— PCH Hospital",
@@ -6454,7 +6479,8 @@ export const data = {
       ],
       "sub_type": [
         "hospital"
-      ]
+      ],
+      "sqft": "65000"
     },
     {
       "title": "— Luxuria",
@@ -6516,7 +6542,8 @@ export const data = {
       ],
       "sub_type": [
         "Residential"
-      ]
+      ],
+      "sqft": "180000"
     },
     {
       "title": "— Metro Crazy Castle",
@@ -6741,7 +6768,8 @@ export const data = {
       ],
       "sub_type": [
         "commercial"
-      ]
+      ],
+      "sqft": "150000"
     }
   ],
   "press": [

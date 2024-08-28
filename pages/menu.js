@@ -1,5 +1,5 @@
 import { menu_items } from "../script.js";
-import { change_colors } from "../colorschemes.js";
+import { change_colors } from "../utils/colorschemes.js";
 import { page, cur_page } from "../router.js";
 import { mem } from "../solid_monke/solid_monke.js";
 import { x } from "../scripts/hyperaxe.js";
