@@ -20,10 +20,6 @@ const new_timeout = (time, rate, cutoff) => {
 
 let colorschemes = [
   {
-    c1: "#110",
-    c2: "#eee",
-  },
-  {
     c1: "#111",
     c2: "#eee",
   },
@@ -40,14 +36,7 @@ eff(() =>
 
 export function change_colors() {
   const random_item = (arr) => arr[Math.floor(Math.random() * arr.length)];
-  let recursive_new = () => {
-    let new_colors = random_item(colorschemes);
-    while (new_colors.c1 == colors().c1 && new_colors.c2 == colors().c2) {
-      new_colors = random_item(colorschemes);
-    }
-    return new_colors;
-  };
-  colors.set(recursive_new());
+  colors.set(random_item(colorschemes));
 }
 
 export { colorschemes, easteregg };

@@ -43,10 +43,8 @@ let CurrentPage = mem(() => {
 /* ===============================
    Final Page Put Together
    =============================== */
-const Mother = () => x("div.mother")(BackgroundGraphic, Menu, CurrentPage);
+const Mother = () => x("div.mother")(Menu, CurrentPage);
 // const Mother = () => x("div.mother")();
 //
 render(Mother, document.body);
 //
-
-console.log("FUCKING ASS HOLE")

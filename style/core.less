@@ -11,8 +11,8 @@
   transition: all 0.8s;
 }
 
-@c1: #0c252c;
-@c2: #f2f2f2;
+@c1: #110;
+@c2: #eee;
 
 @dark-mode: true;
 @dark: if((@dark-mode), @c2, @c1);
@@ -51,6 +51,7 @@
 body {
   overflow-x: hidden;
   background-color: multiply(lighten(@dark, 80%), @light);
+  background-color: @dark;
   font-size: 14px;
   .small({
     font-size: 12px;
@@ -197,6 +198,7 @@ a {
 .sub-header {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
   width: 100%;
 
   .small({
@@ -218,6 +220,7 @@ a {
     .small({
       font-size: 1.5em;
     });
+
     font-family: "Roboto Mono", monospace;
     text-transform: uppercase;
     padding: (@unit / 2);
@@ -230,7 +233,7 @@ a {
 
     font-size: 1em;
     .font-heavy();
-
+      display: none;
     padding: (@unit / 2);
     .small({
       display: none;
@@ -244,6 +247,7 @@ a {
 
 .about {
   padding-bottom: 15vh;
+  background-color: @dark;
 
   box-shadow: @box-shadow;
   p {
@@ -366,15 +370,18 @@ a {
   max-width: 100%;
   height: auto;
 
+  @col: @dark;
+  @bg: @light;
+
   &__metadata {
-    color: @dark;
+    color: @col;
     display: flex;
     flex-direction: column;
-    box-shadow: @shadow fade(@darker, 60);
+    box-shadow: @shadow fade(@darker, 10);
   }
 
   &__title {
-    background-color: @light;
+    background-color: @bg;
     padding: 0 (@unit / 2);
     padding-top: (@unit / 1.5);
     // .font-title-medium();
@@ -385,8 +392,8 @@ a {
   }
 
   &__type {
-    margin-left: @unit;
-    background-color: @light;
+    // margin-left: @unit;
+    background-color: @bg;
     font-size: 0.9em;
     padding: 0 (@unit / 2);
     .f-uppercase();
@@ -395,8 +402,8 @@ a {
   }
 
   &__sub-type {
-    margin-left: @unit;
-    background-color: @light;
+    // margin-left: @unit;
+    background-color: @bg;
     font-size: 0.9em;
     padding: 0 (@unit / 2);
     padding-bottom: (@unit / 2);
@@ -411,8 +418,7 @@ a {
     align-items: center;
 
     width: 100%;
-
-    box-shadow: @shadow fade(@darker, 60);
+    box-shadow: @shadow fade(@darker, 20);
 
     img {
       max-width: 100%;
@@ -425,6 +431,7 @@ a {
 
 .press {
   max-width: 100%;
+  background-color: @dark;
   &-container {
     max-width: 100%;
     display: grid;

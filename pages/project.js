@@ -39,6 +39,9 @@ let residential = (arr) =>
   [...arr].filter((p) => p.sub_type.includes("residential"));
 let commercial = (arr) =>
   [...arr].filter((p) => p.sub_type.includes("commercial"));
+let office = (arr) =>
+  [...arr].filter((p) => p.sub_type.includes("office"));
+
 
 export let filter_map = mut({
   data: [
@@ -70,6 +73,12 @@ export let filter_map = mut({
       type: "sub_type",
       enabled: false,
     },
+    {
+      name: "office",
+      filter: office,
+      type: "sub_type",
+      enabled: false,
+    }
   ],
 });
 
@@ -198,6 +207,8 @@ export const projects = (projees) => {
   let clean_project = (p) => {
     let _p = { ...p };
     _p.images = _p.images.map(large).splice(0, 1);
+    _p.sub_type = _p.sub_type.map((s) => s.toLowerCase());
+    _p.type = _p.type.map((s) => s.toLowerCase());
     return _p;
   };
 
