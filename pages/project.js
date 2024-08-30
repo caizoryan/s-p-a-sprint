@@ -1,5 +1,6 @@
 import { mounted, mut, mem, each, eff_on } from "../solid_monke/solid_monke.js";
 import { x } from "../scripts/hyperaxe.js";
+import { h } from "../scripts/h.js"
 import { fade_in } from "../utils/transitions.js";
 import { sig } from "../solid_monke/solid_monke.js";
 import { q } from "../utils/qs.js";
@@ -24,7 +25,6 @@ let f_random = (a) => {
 let sqft = (arr) => {
   return [...arr].sort((a, b) => b.sqft - a.sqft);
 }
-
 let alphabetical = (arr) => {
   return [...arr].sort((a, b) => a.title.localeCompare(b.title));
 };
@@ -106,10 +106,10 @@ const FilterButton = (f, onenable = () => { }, ondisable = () => { }) => {
     f.enabled = to_enabled;
   };
 
-  return x("button.filter-button")(
-    { onclick: click, active: () => f.enabled },
-    f.name,
-  );
+  return h`
+    button.filter-button [ 
+      onclick = ${click}
+      active = ${f.enabled} ] -- ${f.name}`;
 };
 
 const disable_all = (type) => {
@@ -147,56 +147,51 @@ const FilterBox = () => {
   };
 
   let show = sig(parseBool(s));
-  let toggle = () => {
-    show.set(!show());
-    localStorage.setItem("show_filters", show());
-  };
+  let toggle = () => { show.set(!show()); localStorage.setItem("show_filters", show()); };
   let classes = () => "filter-box " + (show() ? "show" : "hide");
 
-  return [
-    x("button.filter-box-toggle")({ onclick: toggle }, "filters"),
-    x("div")(
-      { class: classes },
-      x("button.close")({ onclick: toggle }, "x"),
-      each(
-        () => Object.entries(filter_grouped()),
-        ([k, f]) => {
-          return x("div")(x("p")(k), each(f, button));
-        },
-      ),
-    ),
-  ];
+  let ech = ([category, filter]) => h`
+      div
+        p -- ${category}
+        div -- ${each(filter, button)}`;
+
+  let r = h`
+    button.filter-box-toggle [ onclick = ${toggle} ] -- filters
+
+    div [ class=${classes} ]
+      button.close [ onclick=${toggle} ] -- x
+      div -- ${each(Object.entries(filter_grouped()), ech)}`;
+
+  return r;
 };
 
 let description = () => {
   mounted(() => fade_in(".projects__showing"));
-  let description = x("div.projects__showing-text");
+
+  let type = mem(() => filter_map.data.filter((f) => f.type === "type").find((f) => f.enabled));
+  let sub_type = mem(() => filter_map.data.filter((f) => f.type === "sub_type").find((f) => f.enabled));
+
   let description_text = mem(() => {
-    let type = filter_map.data
-      .filter((f) => f.type === "type")
-      .find((f) => f.enabled);
-
-    let sub_type = filter_map.data
-      .filter((f) => f.type === "sub_type")
-      .find((f) => f.enabled);
-
-    type = type ? type.name : null;
-    sub_type = sub_type ? sub_type.name : null;
-
     let words = ["all"];
-    if (type || sub_type) words = [];
 
-    if (sub_type) words.push(sub_type);
-    if (type) words.push(type);
+    let t = type() ? type().name : null;
+    let s = sub_type() ? sub_type().name : null;
 
-    if (!type && !sub_type) {
-      return "Showing all projects";
-    }
+    if (t || s) words = [];
+
+    if (s) words.push(s);
+    if (t) words.push(t);
+
+    if (!t && !s) return "Showing all projects";
+
 
     return "Showing " + "(" + count() + ") " + words.join(", ") + " projects";
   });
 
-  return x("div.projects__showing")(x("div"), description(description_text));
+  return h`
+    .projects__showing
+      div 
+      .projects__showing-text -- ${description_text}`
 };
 
 let count;
@@ -206,7 +201,8 @@ export const projects = (projees) => {
 
   let clean_project = (p) => {
     let _p = { ...p };
-    _p.images = _p.images.map(large).splice(0, 1);
+    _p.title = _p.title.split("—")[1];
+    _p.image = _p.images.map(large)[0];
     _p.sub_type = _p.sub_type.map((s) => s.toLowerCase());
     _p.type = _p.type.map((s) => s.toLowerCase());
     return _p;
@@ -229,27 +225,25 @@ export const projects = (projees) => {
   return [
     FilterBox,
     description,
-    x("div.projects")(each(filtered_projects, Project)),
+    h`.projects -- ${(each(filtered_projects, Project))}`,
   ];
 };
 
-const Project = (p) => {
-  let { images, title, type, sub_type, id } = p;
+const Project = ({ image, title, type, sub_type }) => {
+  return h`
+  .project
 
-  title = title.split("—")[1];
+    .project__img 
+      img [ src = ${image} ]
 
-  let box = (id) => "div.project__img";
-  let image = (src) => img({ src });
-  let element = (src, i) => x(box(id + "-" + i))(image(src));
+    .project__metadata
+      .project__title -- ${title}
+      .project__type -- [ ${type.join(" & ")} ]
+      .project__sub-type -- [ ${sub_type.join(", ")} ]`
+};
 
-  let image_elements = images.map(element);
-  // let image_pair_box = x("div.project__img-container")(image_elements);
-  let image_pair_box = image_elements;
-  let metadata = x("div.project__metadata");
-
-  let type_element = x("div.project__type")("[", type.join(" & "), "]");
-  let extra = {};
-
+const is_easter_egg = (title) => {
+  extra = {};
   if (title.includes("Pashine")) {
     let couter = 0;
     let click = () => {
@@ -261,17 +255,5 @@ const Project = (p) => {
 
     extra = { onclick: click };
   }
-
-  let sub_type_element = x("div.project__sub-type")(
-    "[",
-    sub_type.join(", "),
-    "]",
-  );
-
-  let title_element = x("div.project__title")(title);
-
-  return x("div.project")(
-    image_pair_box,
-    metadata(extra, title_element, type_element, sub_type_element),
-  );
-};
+  return extra;
+}
