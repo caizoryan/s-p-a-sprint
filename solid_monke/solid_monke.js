@@ -23,20 +23,19 @@
  *
  */
 
-import h from "./h/h.js";
 import {
+  h,
   For,
   createSignal,
   createMemo,
   createEffect,
   on,
   Switch,
-  Show,
   onMount,
-} from "./solid.js";
-import { render, renderToString } from "./web/web.js";
-import { createStore, produce, createMutable } from "./store/store.js";
-
+  createStore, produce, createMutable,
+  render, renderToString
+} from "./mini-solid.js";
+import { h as html } from "./concise_html/index.js";
 
 // The core, the heart and the soul
 
@@ -159,7 +158,7 @@ const every = (time, callback) => setInterval(callback, time)
 
 export {
   render,
-  h, sig, mem,
+  html, h, sig, mem,
   eff, eff_on, each, if_then, button,
   when, div, span, p, a, h1, h2, h3, h4, br, $, $$,
   img, video,

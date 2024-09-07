@@ -7,6 +7,19 @@ const easteregg = (t = 3000, rate = 0.05, cutoff = 800) => {
 
 const css = (...args) => less.modifyVars(...args);
 
+const easter_egg_click = (title) => {
+  let extra = () => { }
+  if (title.includes("Pashine")) {
+    let couter = 0;
+    let click = () => {
+      couter += 1;
+      if (couter == 20) { easteregg(); }
+    };
+    extra = click;
+  }
+  return extra;
+}
+
 const new_timeout = (time, rate, cutoff) => {
   setTimeout(() => {
     change_colors();
@@ -39,7 +52,7 @@ export function change_colors() {
   colors.set(random_item(colorschemes));
 }
 
-export { colorschemes, easteregg };
+export { colorschemes, easteregg, easter_egg_click };
 
 let extensions = [
   {

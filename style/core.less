@@ -254,10 +254,9 @@ a {
     font-weight: 500;
   }
 
-  &__column {
+  & > .column {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    // grid-gap: @unit;
     margin-top: 2vh;
 
     & > * {
@@ -286,14 +285,14 @@ a {
     .font-low-sub-head();
   }
 
-  &__description {
+  & > .description {
     display: grid;
     grid-template-columns: 2fr 5fr;
     .medium({
       grid-template-columns: 0.1fr 1fr;
     });
 
-    &-text {
+    & > .text {
       background-color: @dark;
       color: @light;
 
