@@ -31,7 +31,9 @@ let CurrentPage = () => mem(() => {
    =============================== */
 
 const Mother = () => h`
-  div -- ${Menu} ${CurrentPage}
+  .mother 
+    ${() => Menu}
+    ${() => CurrentPage}
 `;
 render(Mother, document.body);
 //

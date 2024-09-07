@@ -375,7 +375,7 @@ class Parser {
         };
     }
     eatWhitespace() {
-        while (this.current[this.cursor] === " ") {
+        while (this.char() === " ") {
             this.cursor++;
         }
     }
@@ -395,7 +395,7 @@ class Parser {
     }
     parseAttrs() {
         this.eatWhitespace();
-        if (this.current[this.cursor] !== "[")
+        if (this.char() !== "[")
             return {};
         else {
             let attrs = {};
