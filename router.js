@@ -22,13 +22,17 @@ const init = () => {
   });
 
   page("/", () => set_page("Home"));
-  page("/work", loadfilters, () => set_page("Work"));
+  page("/work", disablefilters, loadfilters, () => set_page("Work"));
   page("/press", () => set_page("Press"));
   page("/about", () => set_page("About"));
   page("/home", () => set_page("Home"));
   page({ hashbang: true });
 };
 
+const disablefilters = (ctx, next) => {
+  filter_map.data.forEach((r) => (r.enabled = false));
+  next();
+}
 const loadfilters = (ctx, next) => {
   let f = ctx.query.f;
   if (f) {

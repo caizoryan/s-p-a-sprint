@@ -16,15 +16,16 @@ export let filter_map = mut({ data: filter_map_data });
 let enabled = () => filter_map.data.filter((f) => f.enabled);
 let filters = mem(() => [sqft, ...enabled().map((f) => f.filter)]);
 
-eff_on(filters, () => {
-  fade_in(".project");
+eff_on(filters, () => { fade_in(".project"); });
+
+let refresh = () => {
   let filter_qs = { f: filters().map((f) => f.name) };
 
   if (window.location.href.includes("/work")) {
     let r = q.stringify(filter_qs);
-    setTimeout(() => page("/work?" + r), 100);
+    setTimeout(() => page("/work?" + r), 10);
   }
-});
+}
 
 
 const disable_all = (type) => filter_map.data.forEach((r) => r.type === type ? (r.enabled = false) : null)
@@ -67,7 +68,7 @@ const FilterBox = () => {
   const filter_categorised = Object.entries(filter_grouped());
 
   const FilterButton = (f) => {
-    const toggle = () => { disable_all(f.type); f.enabled = !f.enabled; };
+    const toggle = () => { disable_all(f.type); f.enabled = !f.enabled; refresh(); };
 
     return h`
     button.filter-button [
@@ -105,8 +106,12 @@ const Project = ({ image, title, type, sub_type }) => {
       .project__sub-type -- [ ${sub_type.join(", ")} ]`
 };
 
+
 export const Projects = (p) => {
-  mounted(() => fade_in(".projects"));
+  mounted(() => {
+    fade_in(".projects")
+  });
+
   projects.set(p.map(clean_project));
 
   return h`
