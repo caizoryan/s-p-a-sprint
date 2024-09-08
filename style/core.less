@@ -51,7 +51,7 @@
 body {
   overflow-x: hidden;
   background-color: multiply(lighten(@dark, 80%), @light);
-  background-color: @dark;
+  background-color: @light;
   font-size: 14px;
   .small({
     font-size: 12px;
@@ -250,8 +250,25 @@ a {
   background-color: @dark;
 
   box-shadow: @box-shadow;
+
   p {
     font-weight: 500;
+  }
+
+  & > .description {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    .medium({
+      grid-template-columns: 0.1fr 1fr;
+    });
+
+    & > .text {
+      background-color: @dark;
+      color: @light;
+
+      padding: (@unit);
+      .font-sub-head();
+    }
   }
 
   & > .column {
@@ -285,37 +302,8 @@ a {
     .font-low-sub-head();
   }
 
-  & > .description {
-    display: grid;
-    grid-template-columns: 2fr 5fr;
-    .medium({
-      grid-template-columns: 0.1fr 1fr;
-    });
-
-    & > .text {
-      background-color: @dark;
-      color: @light;
-
-      padding: (@unit);
-      .font-sub-head();
-    }
-  }
 }
 
-.background-graphic(@primary-color: @dark, @secondary-color: @light) {
-  @size: 3px;
-  background-color: @secondary-color;
-  background-size: @size @size;
-  background-position:
-    0 0,
-    0 @size,
-    @size -@size,
-    -@size 0;
-  background-image: linear-gradient(95deg, (@primary-color) 25%, transparent 0),
-    linear-gradient(-45deg, (@primary-color) 25%, transparent 0),
-    linear-gradient(45deg, transparent 75%, (@primary-color) 0),
-    linear-gradient(-45deg, transparent 75%, (@primary-color) 0);
-}
 
 .projects {
   display: grid;
@@ -487,18 +475,6 @@ a {
   }
 }
 
-.background-graphic {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -3;
-
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .random-div {
   background-color: @dark;
   box-shadow: @box-shadow-light;
@@ -524,6 +500,28 @@ a {
     padding: 0;
   });
   // background-color: lighten(black, 80%);
+}
+
+.home {
+  &__landing {
+    position: relative;
+
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__shadow {
+    box-shadow: 0px -5vh 10vh 10vh @light;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background: @light;
+  }
 }
 
 .filter-box {
@@ -631,89 +629,3 @@ a {
   }
 }
 
-//*-----------------------------
-// GRAVEYARD
-//*-----------------------------
-//
-// .project {
-//   @f: 20;
-//   // .background-graphic(fade(@dark, @f), fade(@light, @f));
-//   background-color: @dark;
-//
-//   display: grid;
-//   grid-template-rows: 9fr 1fr;
-//   .medium({
-//     display: block;
-//   });
-//
-//   margin-top: 5vh;
-//   max-width: 100%;
-//   height: auto;
-//
-//   box-shadow: @box-shadow;
-//
-//   &__img-container {
-//     display: grid;
-//     grid-template-columns: 1fr;
-//     height: 80vh;
-//
-//     .medium({
-//       height: 100vh;
-//     });
-//
-//     .small({
-//       height: 80vh;
-//     });
-//   }
-//
-//   &__metadata {
-//     padding: (@unit / 2);
-//
-//     background-color: @light;
-//
-//     color: @dark;
-//
-//     display: grid;
-//     grid-template-columns: 4fr 2fr 2fr;
-//     .medium({
-//       display: flex;
-//       flex-direction: column;
-//     });
-//   }
-//
-//   &__title {
-//     .font-title-medium();
-//   }
-//
-//   &__type {
-//     font-size: 0.9em;
-//     .font-heavy();
-//   }
-//
-//   &__sub-type {
-//     font-size: 0.9em;
-//     .font-heavy();
-//   }
-//
-//   &__img {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//
-//     width: 100%;
-//
-//     overflow: hidden;
-//
-//     img {
-//       max-height: 100%;
-//       max-width: 100%;
-//       box-shadow: @box-shadow;
-//       object-fit: cover;
-//
-//       .medium({
-//         max-height: 100%;
-//         max-width: 100%;
-//       });
-//     }
-//   }
-// }

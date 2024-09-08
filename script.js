@@ -8,12 +8,13 @@ import { Projects } from "./pages/project.js";
 import { About } from "./pages/about.js";
 import { Press } from "./pages/press.js";
 import { Menu } from "./pages/menu.js";
+import { Home } from "./pages/home.js";
 import { html as h } from "./solid_monke/solid_monke.js";
 
 page_init();
 
 export let menu_items = [
-  { text: "Home" },
+  { text: "Home", render: () => Home },
   { text: "Work", render: () => Projects(data.projects) },
   { text: "Press", render: () => Press(data.press[0].images) },
   { text: "About", render: About },
@@ -30,8 +31,15 @@ let CurrentPage = () => mem(() => {
    Final Page Put Together
    =============================== */
 
+// let extra = mem(() => cur_page() == "home" ? "padding: 0px 0px;" : "");
+let extra = mem(() =>
+  cur_page().toLowerCase() === "home"
+    ? "padding: 0px 0px;"
+    : ""
+);
+
 const Mother = () => h`
-  .mother 
+  .mother [style=${() => extra()}]
     ${() => Menu}
     ${() => CurrentPage}
 `;
