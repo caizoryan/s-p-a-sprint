@@ -1,6 +1,7 @@
 
 import { filter_map_data, sqft } from "./filters.js";
 import { sig, mut, mem, eff_on } from "../../solid_monke/solid_monke.js";
+import { fade_in } from "../../utils/transitions.js";
 
 export let filter_map = mut({ data: filter_map_data });
 

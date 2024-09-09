@@ -10,7 +10,6 @@ export { filter_map, filtered_projects }
    Project
    =============================== */
 
-
 const FilterButton = (f) => {
   const toggle = () => { disable_all(f.type); f.enabled = !f.enabled; refresh(); };
 
@@ -23,13 +22,13 @@ const FilterButton = (f) => {
 const FilterBox = () => {
 
   const show = show_filters();
-
   const classes = () => "filter-box " + (show() ? "show" : "hide");
 
   const Category = ([category, filter]) => h`
-      div
-        p -- ${category}
-        each of ${filter} as ${FilterButton}`;
+    div
+      p -- ${category}
+      each of ${filter} as ${FilterButton}`
+
 
   return h`
     button.filter-box-toggle [ onclick = ${show.toggle} ] -- filters
@@ -37,9 +36,9 @@ const FilterBox = () => {
     div [ class=${classes} ]
       button.close [ onclick=${show.toggle} ] -- x
 
-      each 
-        of ${filter_grouped} 
-        as ${Category}`;
+      #each 
+        of -- ${filter_grouped} 
+        as -- ${Category}`;
 };
 
 const Project = ({ image, title, type, sub_type }) => {

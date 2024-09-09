@@ -1,9 +1,6 @@
 import { menu_items } from "../script.js";
 import { page, cur_page } from "../router.js";
 import { html, mem } from "../solid_monke/solid_monke.js";
-import { x } from "../scripts/hyperaxe.js";
-
-let { div } = x;
 
 /* ===============================
    Menu

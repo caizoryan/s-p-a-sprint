@@ -29,7 +29,7 @@ const init = () => {
   page({ hashbang: true });
 };
 
-const disablefilters = (ctx, next) => {
+const disablefilters = (_, next) => {
   filter_map.data.forEach((r) => (r.enabled = false));
   next();
 }
