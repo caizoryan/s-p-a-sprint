@@ -26,7 +26,12 @@ let categories = [
 ]
 
 const Category = ({ name, link }) => {
-  let click = () => page("/work?" + link) && window.scrollTo({ top: 0, behavior: 'smooth' });;
+  let click = () => {
+    page("/work?" + link)
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 50)
+  };;
   return html`
     .home__category [onclick=${click}] -- ${name}`;
 }
