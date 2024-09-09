@@ -4,19 +4,18 @@ import { sig } from "../solid_monke/solid_monke.js";
 import { q } from "../utils/qs.js";
 import { page } from "../router.js";
 import { easter_egg_click } from "../utils/colorschemes.js";
-import { filter_map_data } from "./project/filters.js";
+import { filter_map_data, sqft } from "./project/filters.js";
 
 /* ===============================
    Project
    =============================== */
 
-let sqft = (arr) => [...arr].sort((a, b) => b.sqft - a.sqft);
-
 export let filter_map = mut({ data: filter_map_data });
-let enabled = () => filter_map.data.filter((f) => f.enabled);
-let filters = mem(() => [sqft, ...enabled().map((f) => f.filter)]);
 
-eff_on(filters, () => { fade_in(".project"); });
+let enabled = () => filter_map.data.filter((f) => f.enabled).map((f) => f.filter);
+let filters = mem(() => [sqft, ...enabled()]);
+
+eff_on(filters, () => fade_in(".project"));
 
 let refresh = () => {
   let filter_qs = { f: filters().map((f) => f.name) };
@@ -26,7 +25,6 @@ let refresh = () => {
     setTimeout(() => page("/work?" + r), 10);
   }
 }
-
 
 const disable_all = (type) => filter_map.data.forEach((r) => r.type === type ? (r.enabled = false) : null)
 

@@ -35,7 +35,9 @@ let CurrentPage = () => mem(() => {
 let extra = mem(() =>
   cur_page().toLowerCase() === "home"
     ? "padding: 0px 0px;"
-    : ""
+    : cur_page().toLowerCase() === "about"
+      ? "padding:  0 1%;"
+      : ""
 );
 
 const Mother = () => h`

@@ -12,8 +12,8 @@ export const Menu = () => {
   let pages = () => menu_items.map((e) => e.text);
 
   return html`
-      .menu
-        .menu__button-container 
+      .alt-menu
+        .alt-menu__button-container 
           each of ${pages} as ${MenuButton}
 
         .sub-header

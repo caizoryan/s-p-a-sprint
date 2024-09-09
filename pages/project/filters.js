@@ -48,3 +48,5 @@ export let filter_map_data = [
     enabled: false,
   }
 ]
+
+export let sqft = (arr) => [...arr].sort((a, b) => b.sqft - a.sqft);
