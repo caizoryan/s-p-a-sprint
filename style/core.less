@@ -164,7 +164,9 @@ a {
   /* Layout */
   display: flex;
   justify-content: left;
-  align-items: end; /* Sizing */
+  align-items: end; 
+
+  /* Sizing */
   padding: (@unit / 2);
   font-size: 1.5em;
   line-height: 1.5em;
@@ -304,14 +306,10 @@ a {
 
 .about {
   padding-bottom: 15vh;
-  background-color: @dark;
   background-color: @light;
+  background-color: @dark;
 
   box-shadow: @box-shadow;
-
-  p {
-    font-weight: 500;
-  }
 
   & > .description {
     display: grid;
@@ -323,6 +321,9 @@ a {
     & > .text {
       background-color: @dark;
       color: @light;
+
+      background-color: @light;
+      color: @dark;
 
       padding: (@unit);
       .font-sub-head();
@@ -354,6 +355,78 @@ a {
 
     // border-top: 1px solid @light;
   }
+
+  & > .team {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    
+    & .main {
+      background-color: @light;
+      color: @dark;
+    }
+
+    & .consultants-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-gap: (@unit * 2);
+      & .consultant{
+        font-weight: 500;
+        font-size: .8em;
+
+        .img-container {
+          height: 90%;
+          width: 100%;
+          // border: 1px solid @dark;
+        display: flex;
+        align-items: start;
+        // justify-content: center;
+        }
+
+        p{
+          border-top: 1px solid fade(@dark, 40);
+          padding-top: 1em;
+          margin-bottom: 1em;
+        }
+
+        img {
+          width: 100%;
+          height: auto;
+          mix-blend-mode: screen;
+        }
+
+      }
+    }
+
+
+    img {
+      height: 40vh;
+    }
+
+    & > * {
+      padding: (@unit * 2);
+
+      color: @dark;
+      background-color: @light;
+
+      height: min-content;
+    }
+
+    .medium({
+      grid-template-columns: 1fr;
+    });
+
+    .title,
+    h1 {
+      .font-low-head();
+      margin-top: (@unit / 2);
+      margin-bottom: (@unit );
+    }
+
+    // border-top: 1px solid @light;
+  }
+
+
 
   &__subhead {
     margin-top: (@unit / 2);

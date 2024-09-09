@@ -26,7 +26,7 @@ let categories = [
 ]
 
 const Category = ({ name, link }) => {
-  let click = () => page("/work?" + link);
+  let click = () => page("/work?" + link) && window.scrollTo({ top: 0, behavior: 'smooth' });;
   return html`
     .home__category [onclick=${click}] -- ${name}`;
 }
@@ -37,6 +37,8 @@ export const Home = () => {
     fade_in(".home__landing", 600)
     fade_in(".home__shadow", 800)
   });
+
+
   return html`
     .home
       .home__landing
