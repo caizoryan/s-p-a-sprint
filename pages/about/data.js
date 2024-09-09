@@ -6,17 +6,12 @@ data.contact = [
   "Email: archspangp@gmail.com",
 ];
 data.clients = [
-  "Microsoft",
-  "Tata Consultancy",
+  "VIPL",
+  "Byjus",
   "IT Park",
-  "Infosys",
-  "Wipro",
-  "Tech Mahindra",
-  "HCL",
-  "IBM",
-  "Cognizant",
-  "Persistent",
-  "Apple",
+  "UltraTech",
+  "Perficient",
+  "Seller Drive"
 ];
 data.communications = [
   { href: "https://www.facebook.com/anuragpallavi", name: "Facebook" },

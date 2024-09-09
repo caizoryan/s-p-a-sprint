@@ -12,6 +12,9 @@ export let About = () => {
 
   let description = "Salankar Pashine & Associates, based in Nagpur, specialises in offering architectural and interior design services across a diverse range of projects, including residential, mixed-use, educational, medical, commercial, and industrial ventures. Established in 1999 and led by Principal Architects Anurag and Pallavi Pashine";
 
+  // div
+  //   .about__subhead -- Services
+  //   each of ${data.services} as ${s => html`div.about__subhead -- ${s}`}
   let consultant = n => {
     return html`
 .consultant
@@ -40,23 +43,21 @@ export let About = () => {
           each of ${data.consultants} as ${consultant}
 
     .column
+
       div
-        .about__subhead -- Services
-        each of ${data.services} as ${s => html`div.about__subhead -- ${s}`}
+        .about__subhead -- Clients
+        each of ${data.clients} as ${c => html`p -- ${c}`}
 
       div
         .about__subhead -- Contact
         each of ${data.contact} as ${c => html`p -- ${c}`}
+
 
       div
         .about__subhead -- Communications
         each 
           of ${data.communications} 
           as ${c => html`p > a [href= ${c.href}] -- ${c.name}`}
-
-      div
-        .about__subhead -- Clients
-        each of ${data.clients} as ${c => html`p -- ${c}`}
 `
 
 };
